@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+
+{% block extended_content %}
+
+<div class="parent-bg">
+<div class="container">
+	<div style="padding-top: 150px; padding-bottom: 150px;">
+	<div class="row">
+	<div class="col-sm-8 text-center" style="margin-top: auto; margin-bottom: auto;">
+		<h1 class="where-eat">Where should we eat?</h1>
+		<a class="btn btn-success" href="#about" role="button">Start Munching</a>
+	</div>
+	<div class="col-sm-4" style="margin-top: auto; margin-bottom: auto;">
+		<img class="phone-img" src="static/images/phone.png" alt="phone">
+	</div>
+	</div>
+	</div>
+</div>
+</div>
+
+<div id="about" class="container">
+	<div class="text-center">
+		<img src="static/images/munchhunt_1.png" alt="logo" style="padding-top: 130px";>
+		<h1><i>Group Restaurant Searching Made Easier</i></h1>
+		<p> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse condimentum lorem sapien, et pulvinar leo dictum ac. Duis a felis est. Curabitur lacinia ultrices rutrum. Nullam congue, risus ac ultrices luctus, orci urna fringilla arcu, sed accumsan ipsum augue a diam. Quisque vel ipsum a purus commodo vestibulum. Sed vulputate eros sed massa condimentum, nec porta leo ultricies. Nam a lorem non sapien vestibulum posuere. Nunc lorem odio, semper non mi ac, gravida lobortis massa. In tristique tortor vitae iaculis vulputate. Sed quis mi euismod, vulputate ipsum ac, egestas orci. Etiam sed enim tellus. Quisque in diam at erat sodales pharetra et a massa. Duis sit amet purus maximus, pellentesque augue vel, pretium enim. Suspendisse sagittis at orci sed ultricies. Vivamus rutrum nulla ac ante rutrum hendrerit. In risus sem, semper at felis eget, ullamcorper condimentum odio.
+
+		</p><p>Nulla facilisi. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Integer tincidunt ultricies euismod. Quisque molestie rhoncus elementum. Nunc pulvinar libero felis, id consequat ligula commodo nec. Donec pulvinar quam odio, eget auctor odio dictum sit amet. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Pellentesque elementum, magna ac vestibulum elementum, arcu est viverra nunc, ut blandit lorem justo a lorem. Ut bibendum, quam et imperdiet ultrices, libero sapien aliquam purus, id pulvinar diam sapien vel elit. Donec eget feugiat metus. Aenean laoreet ullamcorper magna, in accumsan mauris gravida a.
+		</p><p>
+Vivamus nibh massa, rutrum varius odio vitae, congue vehicula tortor. Pellentesque ex tortor, viverra eu risus et, sollicitudin aliquet nisi. Integer varius mauris in posuere hendrerit. Integer varius ullamcorper pretium. Fusce quis ligula tincidunt, interdum nisi a, iaculis risus. Morbi nunc nulla, porttitor id porta sit amet, vehicula in purus. Vestibulum tempus dignissim tellus, quis facilisis diam bibendum id. Cras imperdiet rhoncus dolor a laoreet. Aliquam pulvinar sed libero eu luctus. Aliquam nec felis pretium, porttitor nunc quis, porta sapien. Proin vestibulum metus sit amet ipsum tincidunt placerat. Nulla volutpat velit arcu, sed condimentum dui semper sit amet. In eros erat, egestas id mollis vel, commodo eget risus. Pellentesque tincidunt lorem dui, in pretium augue lacinia id. Curabitur dignissim porta mauris non aliquam. Nulla nec quam ex.
+		</p><p>
+Nulla facilisis vestibulum vulputate. Aliquam malesuada nisl a urna sollicitudin, et imperdiet erat vestibulum. Nulla eget maximus justo. Quisque feugiat odio nec enim ultrices aliquet. Nunc ut placerat nibh. Pellentesque faucibus, metus at elementum euismod, augue magna vehicula nisi, aliquam interdum nisl nisi eget dui. Sed pulvinar tempor consequat.
+		</p><p>
+Duis rutrum neque augue, eget pellentesque tellus sagittis et. Ut nec feugiat purus. Quisque iaculis, nisl sit amet posuere sollicitudin, est lorem eleifend metus, eu aliquet erat nunc a magna. Phasellus pharetra lacus non ante convallis dignissim. Quisque vel eros a ante porta pellentesque id sit amet justo. Nam egestas est at mauris viverra tempor. Nullam nisl diam, maximus id neque at, scelerisque dapibus urna. Nulla suscipit lectus sit amet felis commodo, vel accumsan nunc eleifend. Proin in augue purus. Nam efficitur aliquet est eu tincidunt. Integer ullamcorper nunc in nunc commodo, at rutrum nisl hendrerit. Nullam porta arcu odio, id varius magna sagittis vel. Suspendisse potenti.
+		</p>
+		<h1>Contact Us</h1>
+	</div>
+		<form class="form form-horizontal" method="post" role="form" style="padding-bottom: 20px;">
+                        {{ form.hidden_tag() }}
+                        {{ wtf.form_errors(form, hiddens="only") }}
+                        {{ wtf.form_field(form.name) }}
+                        {{ wtf.form_field(form.email) }}
+                        {{ wtf.form_field(form.phone) }}
+                        {{ wtf.form_field(form.message) }}
+                        {{ wtf.form_field(form.submit) }}
+		</form>
+</div>
+
+{% endblock %}

@@ -1,0 +1,12 @@
+Hello Munchhunt Admin
+
+You have received a message:
+
+Name: {{ name }}
+Email: {{ email }}
+Phone: {{ phone }}
+Message: {{ message }}
+
+Best Regards,
+
+- Munchhunt Auto Email

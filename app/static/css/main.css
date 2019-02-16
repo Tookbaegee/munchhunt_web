@@ -1,0 +1,41 @@
+.parent-bg {
+	background-image: url("/static/images/background.jpg");
+	height: auto;
+	background-size: cover;
+}
+
+.phone-img {
+	padding-top: 10px;
+	width: 100%;
+	padding-bottom: 10px;
+
+}
+
+.navpadding {
+	padding-top: 40px;
+	padding-bottom: 40px;
+	padding-left: 10%;
+	padding-right: 10%;
+}
+
+body {
+	height: 100%;
+}
+
+html {
+	scroll-behavior: smooth;
+}
+
+.where-eat {
+	color: white;
+}
+
+.footer {
+    bottom: 0;
+    width: 100%;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    background-color: #DDDDDD;
+    /* height: 60px;
+    line-height: 60px;    */
+}

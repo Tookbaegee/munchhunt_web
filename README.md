@@ -16,7 +16,7 @@ To get project running on your local machine:
 
 ## Running on Deployment Server (LINUX ONLY!!! Do NOT use root user.)
 
-Preface: Ensure ports 80 and 443 are open (HTTP and HTTPS), and that you are using 
+Preface: Ensure ports 80 and 443 are open (HTTP and HTTPS), and that you are using a non-root user. You could use root user, but it's best to have the site files owned by a non-root user.
 
 1. Type the following commands to make sure everything is set up properly:
 

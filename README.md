@@ -26,8 +26,9 @@ sudo apt install python3-venv
 sudo apt install nginx
 sudo apt install python3-certbot-nginx
 ```
-2. 
-Create a new file called 'site' in `/etc/nginx/sites-available/` using `sudo vi /etc/nginx/sites-available/site`. Copy paste these contents into it:
+
+2. Create a new file called 'site' in `/etc/nginx/sites-available/` using `sudo vi /etc/nginx/sites-available/site`. Copy paste these contents into it:
+
 ```
 server {
     server_name _;
@@ -40,7 +41,9 @@ server {
     listen 80; # managed by Certbot
 }
 ```
+
 Note: change the `_` next to `server_name` whenever you get a domain name set up pointing at the IP address of your server (A record for ipv4 which is standard, AAAA record for ipv6 which is new)
+
 3: Symbolically link the new config file by typing: `sudo ln -s /etc/nginx/sites-available/site /etc/nginx/sites-enabled/`.
 4. Disable the default Nginx config by typing `sudo rm /etc/nginx/sites-enabled/default`. The default config can still be found in `/etc/nginx/sites-available`.
 6. cd to the www folder by typing `cd /var/www/`. 
@@ -52,6 +55,7 @@ Note: change the `_` next to `server_name` whenever you get a domain name set up
 12. Install the package dependencies with the following command: `pip install wheel flask flask-wtf python-dotenv flask-bootstrap4 flask-mail flask-sitemap wsgi`
 13. Set the permissions of the website (VERY IMPORTANT) with this command: `sudo chown -R [YOUR_USERNAME]:www-data /var/www/site` 
 13. It is now time to create the service that starts the site. Type `sudo vi /etc/systemd/system/site.service` and paste the following cotents:
+
 ```
 [Unit]
 Description="uwsgi instance which serves the flask_site app"
@@ -67,6 +71,7 @@ ExecStart=/var/www/site/venv/bin/uwsgi --ini site.ini
 [Install]
 WantedBy=multi-user.target
 ```
+
 14. Type the following command to start the site: `sudo systemctl start site`
 15. Go to the IP address or domain name of the server and the site will be running. 
 Optional: For a domain name, once you get it pointed, type `sudo certbot`. Follow the steps to create a Let's Encrypt certificate, it is pretty straightforward. The only thing to watch out for is ensure that you select 'redirect all'. 

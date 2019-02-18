@@ -7,6 +7,10 @@
 <link rel="stylesheet" href="{{ url_for('.static', filename='css/main.css') }}">
 {% endblock %}
 
+{% block scripts %}
+{{ super() }}
+{% endblock %}
+
 {% block navbar %} 
 <nav class="navpadding navbar navbar-expand-lg navbar-light bg-light sticky-top">
     <!-- <a class="navbar-brand" href="#">Navbar</a> -->
@@ -32,16 +36,48 @@
 		    <a class="nav-link" href="{{url_for("contact")}}">Contact</a>
             </li>
         </ul>
-        <form class="form-inline my-2 my-lg-0">
+        <!-- <form class="form-inline my-2 my-lg-0">
             <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
             <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-        </form>
+        </form> -->
     </div>
 </nav>
+<div style="background-color: #f8f9fa;">
+<div class="container" style="padding-top: 5px; padding-bottom: 5px;">
+<!--THE BELOW CODE GETS ERRORS/SUCCESSES AND FLASHES THEM ON THE SCREEN BELOW THE NAVBAR.-->
+{% with errors = get_flashed_messages(category_filter=["error"])   %}
+{% if errors %}
+    {% for error in errors %}
+    <div class="alert alert-danger notifont alert-dismissible fade show" role="alert">
+    {{ error }}
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="True">&times;</span>
+    </button>
+    </div>
+    {% endfor %}
+{% endif %}
+{% endwith %}
+{% with success = get_flashed_messages(category_filter=["success"])   %}
+{% if success %}
+    {% for s in success %}
+    <div class="alert alert-success notifont alert-dismissible fade show" role="alert">
+    {{ s }}
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="True">&times;</span>
+    </button>
+    </div>
+    {% endfor %}
+{% endif %}
+{% endwith %}
+</div>
+</div>
 {% endblock %}
 
 {% block content %}
+<div class="wrapper">
 {% block extended_content %}{% endblock %}
+<div class="push"></div>
+</div>
 <footer class="footer" id="footer">
 	<div class="container">
 		<span class="text-muted">

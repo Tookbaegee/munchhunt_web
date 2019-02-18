@@ -19,6 +19,10 @@ def restaurants():
 def team():
     return render_template("core/team.html")
 
-@app.route("/contact")
+@app.route("/contact", methods=["GET", "POST"])
 def contact():
-    return render_template("core/contact.html")
+    form = ContactForm()
+    if form.validate_on_submit():
+        send_form_email(name=form.name.data, email=form.email.data, phone=form.phone.data, message=form.message.data)
+        flash("Email sent.", "success")
+    return render_template("core/contact.html", form=form)

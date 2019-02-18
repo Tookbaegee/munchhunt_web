@@ -18,7 +18,8 @@
 	padding-right: 10%;
 }
 
-body {
+
+html, body {
 	height: 100%;
 }
 
@@ -31,11 +32,17 @@ html {
 }
 
 .footer {
-    bottom: 0;
     width: 100%;
     padding-top: 20px;
     padding-bottom: 20px;
-    background-color: #DDDDDD;
-    /* height: 60px;
-    line-height: 60px;    */
+	background-color: #F8F9FA;
+	
+    /* line-height: 60px;     */
+}
+
+.wrapper {
+    min-height: 80%;
+    height: auto !important;
+    height: 80%;
+    margin: 0 auto; /* the bottom margin is the negative value of the footer's height */
 }

@@ -36,13 +36,13 @@ Duis rutrum neque augue, eget pellentesque tellus sagittis et. Ut nec feugiat pu
 		<h1>Contact Us</h1>
 	</div>
 		<form class="form form-horizontal" method="post" role="form" style="padding-bottom: 20px;">
-                        {{ form.hidden_tag() }}
-                        {{ wtf.form_errors(form, hiddens="only") }}
-                        {{ wtf.form_field(form.name) }}
-                        {{ wtf.form_field(form.email) }}
-                        {{ wtf.form_field(form.phone) }}
-                        {{ wtf.form_field(form.message) }}
-                        {{ wtf.form_field(form.submit) }}
+			{{ form.hidden_tag() }}
+			{{ wtf.form_errors(form, hiddens="only") }}
+			{{ wtf.form_field(form.name) }}
+			{{ wtf.form_field(form.email) }}
+			{{ wtf.form_field(form.phone) }}
+			{{ wtf.form_field(form.message) }}
+			{{ wtf.form_field(form.submit) }}
 		</form>
 </div>
 

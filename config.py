@@ -14,4 +14,5 @@ class Config(object):
     MAIL_USE_TLS = True
     MAIL_USERNAME = os.environ.get("MAIL_USERNAME")
     MAIL_PASSWORD = os.environ.get("MAIL_PASSWORD")
-    ADMINS = ["paul@paul.systems"]
+    ADMINS = ["paulgwebsite@gmail.com", "paul@paul.systems"]
+    REALADMINS = ["paulgwebsite@gmail.com", "paul@paul.systems", "inocencio.adriane@gmail.com"]

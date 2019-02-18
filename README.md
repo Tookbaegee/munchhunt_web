@@ -19,6 +19,7 @@ To get project running on your local machine:
 Preface: Ensure ports 80 and 443 are open (HTTP and HTTPS), and that you are using 
 
 1. Type the following commands to make sure everything is set up properly:
+
 ```bash
 sudo apt install python3
 sudo apt install python3-pip
@@ -44,17 +45,17 @@ server {
 
 Note: change the `_` next to `server_name` whenever you get a domain name set up pointing at the IP address of your server (A record for ipv4 which is standard, AAAA record for ipv6 which is new)
 
-3: Symbolically link the new config file by typing: `sudo ln -s /etc/nginx/sites-available/site /etc/nginx/sites-enabled/`.
-4. Disable the default Nginx config by typing `sudo rm /etc/nginx/sites-enabled/default`. The default config can still be found in `/etc/nginx/sites-available`.
-6. cd to the www folder by typing `cd /var/www/`. 
-7. Clone this git repository into this directory with `sudo git clone [REPOSITORY LINK]`. 
-8. Rename the folder by typing `sudo mv /var/www/munch-hunt-website /var/www/site`
-9. cd to this folder, `cd /var/www/site`.
-10. In the project directory, type `python -m venv venv`. This creates the python virtual environment.
-11. Activate the virtual environment by typing `source venv/bin/activate`. 
-12. Install the package dependencies with the following command: `pip install wheel flask flask-wtf python-dotenv flask-bootstrap4 flask-mail flask-sitemap wsgi`
-13. Set the permissions of the website (VERY IMPORTANT) with this command: `sudo chown -R [YOUR_USERNAME]:www-data /var/www/site` 
-13. It is now time to create the service that starts the site. Type `sudo vi /etc/systemd/system/site.service` and paste the following cotents:
+3. Symbolically link the new config file by typing: `sudo ln -s /etc/nginx/sites-available/site /etc/nginx/sites-enabled/`.  
+4. Disable the default Nginx config by typing `sudo rm /etc/nginx/sites-enabled/default`. The default config can still be found in `/etc/nginx/sites-available`.  
+5. cd to the www folder by typing `cd /var/www/`.   
+6. Clone this git repository into this directory with `sudo git clone [REPOSITORY LINK]`.   
+7. Rename the folder by typing `sudo mv /var/www/munch-hunt-website /var/www/site`  
+8. cd to this folder, `cd /var/www/site`.  
+9. In the project directory, type `python -m venv venv`. This creates the python virtual environment.  
+10. Activate the virtual environment by typing `source venv/bin/activate`.   
+11. Install the package dependencies with the following command: `pip install wheel flask flask-wtf python-dotenv flask-bootstrap4 flask-mail flask-sitemap wsgi`  
+12. Set the permissions of the website (VERY IMPORTANT) with this command: `sudo chown -R [YOUR_USERNAME]:www-data /var/www/site`   
+13. It is now time to create the service that starts the site. Type `sudo vi /etc/systemd/system/site.service` and paste the following cotents:  
 
 ```
 [Unit]
@@ -72,7 +73,7 @@ ExecStart=/var/www/site/venv/bin/uwsgi --ini site.ini
 WantedBy=multi-user.target
 ```
 
-14. Type the following command to start the site: `sudo systemctl start site`
-15. Go to the IP address or domain name of the server and the site will be running. 
-Optional: For a domain name, once you get it pointed, type `sudo certbot`. Follow the steps to create a Let's Encrypt certificate, it is pretty straightforward. The only thing to watch out for is ensure that you select 'redirect all'. 
-Now your site will have HTTPS on its domain.
+14. Type the following command to start the site: `sudo systemctl start site`  
+15. Go to the IP address or domain name of the server and the site will be running.   
+Optional: For a domain name, once you get it pointed, type `sudo certbot`. Follow the steps to create a Let's Encrypt certificate, it is pretty straightforward. The only thing to watch out for is ensure that you select 'redirect all'.   
+Now your site will have HTTPS on its domain.  

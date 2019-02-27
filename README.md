@@ -53,7 +53,7 @@ Note: change the `_` next to `server_name` whenever you get a domain name set up
 8. cd to this folder, `cd /var/www/site`.  
 9. In the project directory, type `python -m venv venv`. This creates the python virtual environment.  
 10. Activate the virtual environment by typing `source venv/bin/activate`.   
-11. Install the package dependencies with the following command: `pip install wheel flask flask-wtf python-dotenv flask-bootstrap4 flask-mail flask-sitemap wsgi`  
+11. Install the package dependencies with the following command: `pip install wheel flask flask-wtf python-dotenv flask-bootstrap4 flask-mail flask-sitemap wsgi flask-recaptcha`  
 12. Set the permissions of the website (VERY IMPORTANT) with this command: `sudo chown -R [YOUR_USERNAME]:www-data /var/www/site`   
 13. It is now time to create the service that starts the site. Type `sudo vi /etc/systemd/system/site.service` and paste the following cotents:  
 

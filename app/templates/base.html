@@ -9,6 +9,7 @@
 
 {% block scripts %}
 {{ super() }}
+<script src="{{ url_for('.static', filename='js/main.js') }}"></script>
 {% endblock %}
 
 {% block navbar %} 
@@ -23,28 +24,59 @@
 
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
+            {% if request.path == "/index" %}
             <li class="nav-item active">
+            {% else %}
+            <li class="nav-item">
+            {% endif %}
 		    <a class="nav-link" href="{{url_for("index")}}">Platform <span class="sr-only">(current)</span></a>
             </li>
+            {% if request.path == "/restaurants" %}
+            <li class="nav-item active">
+            {% else %}
             <li class="nav-item">
+            {% endif %}
 		    <a class="nav-link" href="{{url_for("restaurants")}}">Restaurants</a>
             </li>
+            {% if request.path == "/team" %}
+            <li class="nav-item active">
+            {% else %}
             <li class="nav-item">
+            {% endif %}
 		    <a class="nav-link" href="{{url_for("team")}}">Team</a>
             </li>
+            {% if request.path == "/contact" %}
+            <li class="nav-item active">
+            {% else %}
             <li class="nav-item">
+            {% endif %}
 		    <a class="nav-link" href="{{url_for("contact")}}">Contact</a>
             </li>
+            {% if request.path == "/login" %}
+            <li class="nav-item active">
+            {% else %}
+            <li class="nav-item">
+            {% endif %}
+            {% if current_user.is_anonymous %}
+                <a class="nav-link" href="{{ url_for('login') }}">Login</a>
+            {% else %}
+                <a class="nav-link" href="{{ url_for('logout') }}">Logout</a>
+            {% endif %}
+            </li>
+            {% if current_user.is_anonymous %}
+            {% if request.path == "/register" %}
+            <li class="nav-item active">
+            {% else %}
+            <li class="nav-item">
+            {% endif %}
+            <a class="nav-link" href=" {{ url_for('register') }}">Register</a>
+            {% endif %}
+            </li>
         </ul>
-        <!-- <form class="form-inline my-2 my-lg-0">
-            <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-        </form> -->
     </div>
 </nav>
 <div style="background-color: #f8f9fa;">
 <div class="container" style="padding-top: 5px; padding-bottom: 5px;">
-<!--THE BELOW CODE GETS ERRORS/SUCCESSES AND FLASHES THEM ON THE SCREEN BELOW THE NAVBAR.-->
 {% with errors = get_flashed_messages(category_filter=["error"])   %}
 {% if errors %}
     {% for error in errors %}

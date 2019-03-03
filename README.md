@@ -8,11 +8,12 @@ To get project running on your local machine:
 2. Clone the project. Ensure you are in the right directory by typing `cd munch-hunt-website` so that you're in the root of the site.
 3. In the project directory, type `python -m venv venv`. This creates the python virtual environment.
 4. Activate the virtual environment. Do this by typing `venv\Scripts\activate` on Windows, and `source venv/bin/activate` on Linux.
-5. Install the package dependencies with the following command: `pip install flask flask-wtf python-dotenv flask-bootstrap4 flask-mail flask-sitemap flask-recaptcha` 
+5. Install the package dependencies with the following command: `pip install flask flask-wtf python-dotenv flask-bootstrap4 flask-mail flask-sitemap flask-recaptcha flask-pymongo flask-login flask-argon2 pyjwt`   
 6. Set the environment variable for running the project. On a standard Linux shell, the command for this is `export FLASK_APP=fsite.py`. On windows, in powershell, `$env:FLASK_APP = "fsite.py"`. 
 7. Optional: set debug environment variable so that the server refreshes whenever files are changed. This environment variable is called `FLASK_DEBUG` and it should be set to a value of `1`.
-8. Type `flask run` in the console to run the application.
-9. Hit CTRL + C to quit the application. 
+8. Install MongoDB local server. Ensure port is running on the default, 27017. Also make sure it's running. On linux this is `sudo apt install mongodb`
+9. Type `flask run` in the console to run the application.
+10. Hit CTRL + C to quit the application. 
 
 ## Running on Deployment Server (LINUX ONLY!!! Do NOT use root user.)
 
@@ -53,7 +54,7 @@ Note: change the `_` next to `server_name` whenever you get a domain name set up
 8. cd to this folder, `cd /var/www/site`.  
 9. In the project directory, type `python -m venv venv`. This creates the python virtual environment.  
 10. Activate the virtual environment by typing `source venv/bin/activate`.   
-11. Install the package dependencies with the following command: `pip install wheel flask flask-wtf python-dotenv flask-bootstrap4 flask-mail flask-sitemap wsgi flask-recaptcha`  
+11. Install the package dependencies with the following command: `pip install flask flask-wtf python-dotenv flask-bootstrap4 flask-mail flask-sitemap flask-recaptcha flask-pymongo flask-login flask-argon2 pyjwt`  
 12. Set the permissions of the website (VERY IMPORTANT) with this command: `sudo chown -R [YOUR_USERNAME]:www-data /var/www/site`   
 13. It is now time to create the service that starts the site. Type `sudo vi /etc/systemd/system/site.service` and paste the following cotents:  
 
@@ -72,8 +73,9 @@ ExecStart=/var/www/site/venv/bin/uwsgi --ini site.ini
 [Install]
 WantedBy=multi-user.target
 ```
-
-14. Type the following command to start the site: `sudo systemctl start site`  
-15. Go to the IP address or domain name of the server and the site will be running.   
+14. Install MongoDB local server with `sudo apt install mongodb`
+15. Ensure MongoDB is started by typing `sudo systemctl start mongodb`
+16. Type the following command to start the site: `sudo systemctl start site`  
+17. Go to the IP address or domain name of the server and the site will be running.   
 Optional: For a domain name, once you get it pointed, type `sudo certbot`. Follow the steps to create a Let's Encrypt certificate, it is pretty straightforward. The only thing to watch out for is ensure that you select 'redirect all'.   
 Now your site will have HTTPS on its domain.  

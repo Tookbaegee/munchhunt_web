@@ -1,9 +1,8 @@
-from app import mongo
 from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, BooleanField, SubmitField, TextAreaField
 from wtforms.widgets import TextArea
 from wtforms.validators import DataRequired, ValidationError, Email, EqualTo
-#from app.models import User
+from app.models import User
 
 class LoginForm(FlaskForm):
     username = StringField('Username', validators=[DataRequired()])
@@ -20,19 +19,19 @@ class RegistrationForm(FlaskForm):
     submit = SubmitField('Register')
 
     def validate_username(self, username):
-        user = mongo.db.users.find_one({"user.username":username.data})
-        if user:
+        user = User.query.filter_by(username=username.data).first()
+        if user is not None:
             raise ValidationError('Please use a different username.')
 
     def validate_email(self, email):
-        user = mongo.db.users.find_one({"user.email":email.data})
-        if user:
+        user = User.query.filter_by(email=email.data).first()
+        if user is not None:
             raise ValidationError('Please use a different email address.')
     
     def validate_password(self, password):
         pwd = str(password.data) 
         if "password" in pwd.lower():
-            raise ValidationError("Please don't use the password 'password'. Ever.")
+            raise ValidationError("For the love of God. Why the hell would you use the password 'password'? Hell no. Not here you won't. Change it.")
         elif len(pwd) >= 8 and any(ch.isupper() for ch in pwd) and any(ch.islower() for ch in pwd) and any(ch.isdigit() for ch in pwd):
             file = open("app/auth/cracked_passwords.txt", "r")
             for l in file:

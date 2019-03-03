@@ -3,27 +3,9 @@
 
 {% block extended_content %}
 <h1>Sign In</h1>
-{% with errors = get_flashed_messages(category_filter=["error"])   %}
-    {% if errors %}
-        {% for error in errors %}
-        <div class="alert alert-danger" role="alert">
-        {{ error }}
-        </div>
-        {% endfor %}
-    {% endif %}
-{% endwith %}
-{% with success = get_flashed_messages(category_filter=["success"])   %}
-    {% if success %}
-        {% for s in success %}
-        <div class="alert alert-success" role="alert">
-        {{ s }}
-        </div>
-        {% endfor %}
-    {% endif %}
-{% endwith %}
 <div class="row">
     <div class="col-md-4">
-        <form class="form form-horizontal" method="post" role="form"></form>
+        <form class="form form-horizontal" method="post" role="form">
             {{ form.hidden_tag() }}
             {{ wtf.form_errors(form, hiddens="only") }}
             {{ wtf.form_field(form.username) }}

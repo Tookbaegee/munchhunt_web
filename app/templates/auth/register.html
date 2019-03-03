@@ -4,7 +4,7 @@
 {% block extended_content %}
 	<div class="row">
         <div class="col-md-4">
-            <form class="form form-horizontal" method="post" role="form"></form>
+            <form class="form form-horizontal" method="post" role="form">
                 {{ form.hidden_tag() }}
                 {{ wtf.form_errors(form, hiddens="only") }}
                 {{ wtf.form_field(form.username) }}
@@ -14,6 +14,7 @@
                 {{ recaptcha }}
                 <!-- {{ wtf.quick_form(form) }} -->
                 {{ wtf.form_field(form.submit) }}
+            </form>
         </div>
     </div>
     <p>some important sign-up text here</p>

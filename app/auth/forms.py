@@ -31,7 +31,7 @@ class RegistrationForm(FlaskForm):
     def validate_password(self, password):
         pwd = str(password.data) 
         if "password" in pwd.lower():
-            raise ValidationError("For the love of God. Why the hell would you use the password 'password'? Hell no. Not here you won't. Change it.")
+            raise ValidationError("Please do not use any form of the password 'password'.")
         elif len(pwd) >= 8 and any(ch.isupper() for ch in pwd) and any(ch.islower() for ch in pwd) and any(ch.isdigit() for ch in pwd):
             file = open("app/auth/cracked_passwords.txt", "r")
             for l in file:

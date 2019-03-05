@@ -2,24 +2,25 @@
 {% import 'bootstrap/wtf.html' as wtf %}
 
 {% block extended_content %}
-<h1>Sign In</h1>
-<div class="row">
-    <div class="col-md-4">
-        <form class="form form-horizontal" method="post" role="form">
-            {{ form.hidden_tag() }}
-            {{ wtf.form_errors(form, hiddens="only") }}
-            {{ wtf.form_field(form.username) }}
-            {{ wtf.form_field(form.password) }}
-            {{ recaptcha }}
-            <!-- {{ wtf.quick_form(form) }} -->
-            {{ wtf.form_field(form.submit) }}
-        </form>
-        <p>
-            Forgot your password?
-            <a href="{{ url_for('reset_password_request') }}">Reset Password</a>
-        </p>
+<div class="container">
+    <h1>Sign In</h1>
+    <div class="row">
+        <div class="col-md-4">
+            <form class="form form-horizontal" method="post" role="form">
+                {{ form.hidden_tag() }}
+                {{ wtf.form_errors(form, hiddens="only") }}
+                {{ wtf.form_field(form.username) }}
+                {{ wtf.form_field(form.password) }}
+                {{ recaptcha }}
+                {{ wtf.form_field(form.submit) }}
+            </form>
+            <p>
+                Forgot your password?
+                <a href="{{ url_for('reset_password_request') }}">Reset Password</a>
+            </p>
+        </div>
     </div>
+    <h2>Don't have an account? <a href="/register">Register here!</a></h2>
+    <br>
 </div>
-<h2>Don't have an account? <a href="/register">Register here!</a></h2>
-<br>
 {% endblock %}

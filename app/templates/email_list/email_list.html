@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% import 'bootstrap/wtf.html' as wtf %}
+
+{% block extended_content %}
+<div class="container">
+    <h1>Email List</h1>
+    <p>Sign up for our email list so once we have an announcement to make regarding our product, you will be the first to know.</p>
+    <form class="form form-horizontal" method="post" role="form" style="padding-bottom: 20px;">
+        {{ form.hidden_tag() }}
+        {{ wtf.form_errors(form, hiddens="only") }}
+        {{ wtf.form_field(form.email) }}
+        {{ recaptcha }}
+        {{ wtf.form_field(form.submit) }}
+    </form>
+</div>
+{% endblock %}

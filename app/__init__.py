@@ -30,3 +30,6 @@ app.register_blueprint(core_bp)
 
 from app.auth import bp as auth_bp
 app.register_blueprint(auth_bp)
+
+from app.email_list import bp as email_list_bp
+app.register_blueprint(email_list_bp)

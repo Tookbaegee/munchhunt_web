@@ -9,6 +9,51 @@ import jwt
 def load_user(id):
     return User.query.get(int(id))
 
+class Restaurant(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(120), index=True, unique=True)
+    alias = db.Column(db.String(120), index=True, unique=True)
+    latitude = db.Column(db.Float, index=True)
+    longitude = db.Column(db.Float, index=True)
+    phone = db.Column(db.String(120), index=True)
+    price = db.Column(db.String(120), index=True)
+    direction = db.Column(db.String(120), index=True)
+    time = db.Column(db.Integer, unique=True)
+    hours = db.relationship("Hours", backref="restaurant", lazy="dynamic")
+    menus = db.relationship("Menu", backref="restaurant", lazy="dynamic")
+
+class Hours(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    # TODO index true for these?? probably, what if need to look up open on mondays?
+    sunday = db.Column(db.String(120), index=True)
+    monday = db.Column(db.String(120), index=True)
+    tuesday = db.Column(db.String(120), index=True)
+    wednesday = db.Column(db.String(120), index=True)
+    thursday = db.Column(db.String(120), index=True)
+    friday = db.Column(db.String(120), index=True)
+    saturday = db.Column(db.String(120), index=True)
+    restaurantId = db.Column(db.Integer, db.ForeignKey("restaurant.id"))
+
+class Menu(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    menuItems = db.Relationship("MenuItem", backref="menu", lazy="dynamic")
+
+class MenuItem(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(120), index=True)
+    description = db.Column(db.String(200), index=True)
+    itemType = db.Column(db.String(120), index=True)
+    price = db.Column(db.String(120), index=True)
+    menuId = db.Column(db.Integer, db.ForeignKey("menu.id"))
+
+class IngredientInfo(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    # should the below be unique?
+    name = db.Column(db.String, index=True)
+    optional = db.Column(db.Boolean, index=True)
+    caution = db.Column(db.Boolean, index=True)
+
+# For email. 
 class Business(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     email = db.Column(db.String(120), index=True, unique=True)

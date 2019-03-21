@@ -6,5 +6,4 @@ def send_form_email(name, email, phone, message):
                 sender=current_app.config["ADMINS"][0],
                 recipients=current_app.config["ADMINS"],
                 text_body=render_template("email/form_message.txt",name=name, email=email, phone=phone, message=message),
-                html_body=render_template("email/form_message.html", name=name, email=email, phone=phone, message=message)
-)
+                html_body=render_template("email/form_message.html", name=name, email=email, phone=phone, message=message))

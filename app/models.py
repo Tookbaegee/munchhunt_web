@@ -32,11 +32,12 @@ class Hours(db.Model):
     thursday = db.Column(db.String(120), index=True)
     friday = db.Column(db.String(120), index=True)
     saturday = db.Column(db.String(120), index=True)
-    restaurantId = db.Column(db.Integer, db.ForeignKey("restaurant.id"))
+    restaurant_id = db.Column(db.Integer, db.ForeignKey("restaurant.id"))
 
 class Menu(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    menuItems = db.Relationship("MenuItem", backref="menu", lazy="dynamic")
+    menuItems = db.relationship("MenuItem", backref="menu", lazy="dynamic")
+    restaurant_id = db.Column(db.Integer, db.ForeignKey("restaurant.id"))
 
 class MenuItem(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -44,7 +45,7 @@ class MenuItem(db.Model):
     description = db.Column(db.String(200), index=True)
     itemType = db.Column(db.String(120), index=True)
     price = db.Column(db.String(120), index=True)
-    menuId = db.Column(db.Integer, db.ForeignKey("menu.id"))
+    menu_id = db.Column(db.Integer, db.ForeignKey("menu.id"))
 
 class IngredientInfo(db.Model):
     id = db.Column(db.Integer, primary_key=True)

@@ -33,3 +33,7 @@ app.register_blueprint(auth_bp)
 
 from app.email_list import bp as email_list_bp
 app.register_blueprint(email_list_bp)
+
+# there may be multiple APIs in the future but this is good for now
+from app.api import api
+app.register_blueprint(api, url_prefix="/api")

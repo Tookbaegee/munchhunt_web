@@ -1,10 +1,12 @@
 from flask import jsonify, render_template
 from app.api import api
 from app.models import Restaurant
+from app.api.auth import token_auth
 
 # Function to retrieve all restaurants and give enough information to put on the map
 
 @api.route("/restaurants/get/all_restaurants/", methods=["GET"])
+@token_auth.login_required
 def get_all_restaurants():
     restaurants = Restaurant.query.all()
     if len(restaurants) > 0:
@@ -25,6 +27,7 @@ def get_all_restaurants():
 
 # Function to get all information of specified restaurant
 @api.route("/restaurants/get/restaurant_info_all/<string:alias>", methods=["GET"])
+@token_auth.login_required
 def get_restaurant_info_all(alias):
     rest = Restaurant.query.filter_by(alias=alias).first()
     hours = rest.hours.first()
@@ -62,6 +65,7 @@ def get_restaurant_info_all(alias):
 
 # Function to get minimum amount of restaurant information (used for putting info on map)
 @api.route("/restaurants/get/restaurant_info/<string:alias>", methods=["GET"])
+@token_auth.login_required
 def get_restaurant_info(alias):
     rest = Restaurant.query.filter_by(alias=alias).first()
     if rest:
@@ -82,6 +86,7 @@ def get_restaurant_info(alias):
 
 # retrieves ONLY hours of specified restaurant (and name)
 @api.route("/restaurants/get/restaurant_hours/<string:alias>", methods=["GET"])
+@token_auth.login_required
 def get_restaurant_hours(alias):
     rest = Restaurant.query.filter_by(alias=alias).first()
     hours = rest.hours.first()
@@ -105,6 +110,7 @@ def get_restaurant_hours(alias):
 
 # retrieves ONLY menu items of specified restaurant (and name)
 @api.route("/restaurants/get/restaurant_menu/<string:alias>", methods=["GET"])
+@token_auth.login_required
 def get_restaurant_menu(alias):
     rest = Restaurant.query.filter_by(alias=alias).first()
     menu = rest.menu.first()

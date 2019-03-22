@@ -27,6 +27,8 @@ def get_all_restaurants():
 @api.route("/restaurants/get/restaurant_info_all/<string:alias>", methods=["GET"])
 def get_restaurant_info_all(alias):
     rest = Restaurant.query.filter_by(alias=alias).first()
+    hours = rest.hours.first()
+    menu = rest.menu.first()
     if rest:
         stuff = {
             "status":"success",
@@ -38,21 +40,21 @@ def get_restaurant_info_all(alias):
             "price": rest.price,
             "direction": rest.direction,
             "time": rest.time,
-            "hours": [{
-                "sunday" : h.sunday,
-                "monday" : h.monday,
-                "tuesday" : h.tuesday,
-                "wednesday": h.wednesday,
-                "thursday": h.thursday,
-                "friday": h.friday,
-                "saturday": h.saturday
-            } for h in rest.hours] if rest.menus else None,
-            "menus": [[{
+            "hours": {
+                "sunday" : hours.sunday,
+                "monday" : hours.monday,
+                "tuesday" : hours.tuesday,
+                "wednesday": hours.wednesday,
+                "thursday": hours.thursday,
+                "friday": hours.friday,
+                "saturday": hours.saturday
+            } if hours else None,
+            "menu": [{
                 "name" : item.name,
                 "description" : item.description,
                 "itemType" : item.itemType,
                 "price" : item.price,
-            } for item in m.menuItems] for m in rest.menus] if rest.menus else None 
+            } for item in menu.menuItems] if menu else None 
         }
         return jsonify(stuff)
     else:
@@ -82,38 +84,40 @@ def get_restaurant_info(alias):
 @api.route("/restaurants/get/restaurant_hours/<string:alias>", methods=["GET"])
 def get_restaurant_hours(alias):
     rest = Restaurant.query.filter_by(alias=alias).first()
+    hours = rest.hours.first()
     if rest:
         stuff = {
             "status":"success",
             "name": rest.name,
-            "hours": [{
-                "sunday" : h.sunday,
-                "monday" : h.monday,
-                "tuesday" : h.tuesday,
-                "wednesday": h.wednesday,
-                "thursday": h.thursday,
-                "friday": h.friday,
-                "saturday": h.saturday
-            } for h in rest.hours] if rest.menus else None
+            "hours": {
+                "sunday" : hours.sunday,
+                "monday" : hours.monday,
+                "tuesday" : hours.tuesday,
+                "wednesday": hours.wednesday,
+                "thursday": hours.thursday,
+                "friday": hours.friday,
+                "saturday": hours.saturday
+            } if hours else None
         }
         return jsonify(stuff)
     else:
         return jsonify({"status": "error", "message":"Specified restaurant could not be found."})
 
-# retrieves ONLY Hours of specified restaurant (and name)
+# retrieves ONLY menu items of specified restaurant (and name)
 @api.route("/restaurants/get/restaurant_menu/<string:alias>", methods=["GET"])
 def get_restaurant_menu(alias):
     rest = Restaurant.query.filter_by(alias=alias).first()
+    menu = rest.menu.first()
     if rest:
         stuff = {
             "status":"success",
             "name": rest.name,
-            "menus": [[{
+            "menu": [{
                 "name" : item.name,
                 "description" : item.description,
                 "itemType" : item.itemType,
                 "price" : item.price,
-            } for item in m.menuItems] for m in rest.menus] if rest.menus else None 
+            } for item in menu.menuItems] if menu else None 
         }
         return jsonify(stuff)
     else:

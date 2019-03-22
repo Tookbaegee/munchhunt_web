@@ -18,9 +18,9 @@ class Restaurant(db.Model):
     phone = db.Column(db.String(120), index=True)
     price = db.Column(db.String(120), index=True)
     direction = db.Column(db.String(120), index=True)
-    time = db.Column(db.Integer, unique=True)
-    hours = db.relationship("Hours", backref="restaurant", lazy="dynamic")
-    menus = db.relationship("Menu", backref="restaurant", lazy="dynamic")
+    time = db.Column(db.Integer)
+    hours = db.relationship("Hours", backref=db.backref("restaurant", uselist=False), lazy="dynamic")
+    menu = db.relationship("Menu", backref=db.backref("restaurant", uselist=False), lazy="dynamic")
 
 class Hours(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -33,7 +33,7 @@ class Hours(db.Model):
     friday = db.Column(db.String(120), index=True)
     saturday = db.Column(db.String(120), index=True)
     restaurant_id = db.Column(db.Integer, db.ForeignKey("restaurant.id"))
-
+    
 class Menu(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     menuItems = db.relationship("MenuItem", backref="menu", lazy="dynamic")

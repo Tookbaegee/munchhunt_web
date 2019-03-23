@@ -26,7 +26,7 @@ def get_all_restaurants():
         return jsonify({"status" : "error", "message" : "there are no restaurants available"})
 
 # Function to get all information of specified restaurant
-@api.route("/restaurants/get/restaurant_info_all/<string:alias>", methods=["GET"])
+@api.route("/restaurants/get/restaurant_info_all/<string:alias>/", methods=["GET"])
 @token_auth.login_required
 def get_restaurant_info_all(alias):
     rest = Restaurant.query.filter_by(alias=alias).first()
@@ -64,7 +64,7 @@ def get_restaurant_info_all(alias):
         return jsonify({"status": "error", "message":"Specified restaurant could not be found."})
 
 # Function to get minimum amount of restaurant information (used for putting info on map)
-@api.route("/restaurants/get/restaurant_info/<string:alias>", methods=["GET"])
+@api.route("/restaurants/get/restaurant_info/<string:alias>/", methods=["GET"])
 @token_auth.login_required
 def get_restaurant_info(alias):
     rest = Restaurant.query.filter_by(alias=alias).first()
@@ -85,7 +85,7 @@ def get_restaurant_info(alias):
         return jsonify({"status": "error", "message":"Specified restaurant could not be found."})
 
 # retrieves ONLY hours of specified restaurant (and name)
-@api.route("/restaurants/get/restaurant_hours/<string:alias>", methods=["GET"])
+@api.route("/restaurants/get/restaurant_hours/<string:alias>/", methods=["GET"])
 @token_auth.login_required
 def get_restaurant_hours(alias):
     rest = Restaurant.query.filter_by(alias=alias).first()
@@ -109,7 +109,7 @@ def get_restaurant_hours(alias):
         return jsonify({"status": "error", "message":"Specified restaurant could not be found."})
 
 # retrieves ONLY menu items of specified restaurant (and name)
-@api.route("/restaurants/get/restaurant_menu/<string:alias>", methods=["GET"])
+@api.route("/restaurants/get/restaurant_menu/<string:alias>/", methods=["GET"])
 @token_auth.login_required
 def get_restaurant_menu(alias):
     rest = Restaurant.query.filter_by(alias=alias).first()

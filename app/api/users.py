@@ -4,8 +4,10 @@ from app import db
 from app.models import User
 from app.api.auth import token_auth
 from app.api.errors import bad_request
-
 from app.models import User
+
+# TODO: change all of the routes to have / at the end for consistency
+
 @api.route('/users/<int:id>', methods=['GET'])
 @token_auth.login_required
 def get_user(id):

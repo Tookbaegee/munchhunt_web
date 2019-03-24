@@ -5,7 +5,10 @@
 
 <h1>Current Server Performance Metrics</h1>
 
-<p>CPU Utilization: {{ cpu }} %, {{ cpu_cores }} Cores, {{ cpu_threads }}  Threads @ {{ cpu_freq }} GHz</p>
-<p>RAM Utilization: {{ ram_percent }} %, {{ram_used}} GB / {{ram_total}} GB</p>
+<p>CPU Utilization: {{ cpu }} %, {{ cpu_cores }} Cores, {{ cpu_threads }}  Threads {% if cpu_freq %}@ {{ cpu_freq }} GHz{% endif %}</p>
+<p>RAM Utilization: {{ ram_percent }} %, {{ram_used}} GB / {{ram_total}} GB, {{ram_free}} GB Free</p>
+<p>Disk Utilization: {{ disk_percent }} %, {{disk_used}} GB / {{disk_total}} GB, {{disk_free}} GB Free</p>
+
+<h3><a href="{{ url_for('index')}}">Back to Website Home Page</a></h3>
 
 {% endblock %}

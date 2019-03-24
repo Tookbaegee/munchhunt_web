@@ -1,5 +1,11 @@
 {% extends 'admin/master.html' %}
 
 {% block body %}
-<p>Hello world</p>
+<h2>Hello there, Admin</h2>
+
+<h1>Current Server Performance Metrics</h1>
+
+<p>CPU Utilization: {{ cpu }} %, {{ cpu_cores }} Cores, {{ cpu_threads }}  Threads @ {{ cpu_freq }} GHz</p>
+<p>RAM Utilization: {{ ram_percent }} %, {{ram_used}} GB / {{ram_total}} GB</p>
+
 {% endblock %}

@@ -24,6 +24,9 @@ class Restaurant(db.Model):
     hours = db.relationship("Hours", backref=db.backref("restaurant", uselist=False), lazy="dynamic")
     menu = db.relationship("Menu", backref=db.backref("restaurant", uselist=False), lazy="dynamic")
 
+    def __repr__(self):
+        return "<Restaurant: {}>".format(self.name)
+
 class Hours(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     # TODO index true for these?? probably, what if need to look up open on mondays?
@@ -35,11 +38,17 @@ class Hours(db.Model):
     friday = db.Column(db.String(120), index=True)
     saturday = db.Column(db.String(120), index=True)
     restaurant_id = db.Column(db.Integer, db.ForeignKey("restaurant.id"))
+
+    def __repr__(self):
+        return "<Hours: {}>".format(self.restaurant.name)
     
 class Menu(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     menuItems = db.relationship("MenuItem", backref="menu", lazy="dynamic")
     restaurant_id = db.Column(db.Integer, db.ForeignKey("restaurant.id"))
+
+    def __repr__(self):
+        return "<Menu: {}>".format(self.restaurant.name)
 
 class MenuItem(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -49,6 +58,9 @@ class MenuItem(db.Model):
     price = db.Column(db.String(120), index=True)
     menu_id = db.Column(db.Integer, db.ForeignKey("menu.id"))
 
+    def __repr__(self):
+        return "<MenuItem: {}>".format(self.name)
+
 class IngredientInfo(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     # should the below be unique?
@@ -56,10 +68,15 @@ class IngredientInfo(db.Model):
     optional = db.Column(db.Boolean, index=True)
     caution = db.Column(db.Boolean, index=True)
 
+    def __repr__(self):
+        return "<IngredientInfo: {}>".format(self.name)
+
 # For email. 
 class Business(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     email = db.Column(db.String(120), index=True, unique=True)
+    def __repr__(self):
+        return "<Business: {}>".format(self.email)
     
 class User(UserMixin, db.Model):
     id = db.Column(db.Integer, primary_key=True)

@@ -55,7 +55,7 @@ class AdminView(AdminIndexView):
                     {"cpu": psutil.cpu_percent()},
                     {"cpu_cores" : psutil.cpu_count(logical=False)},
                     {"cpu_threads":psutil.cpu_count(logical=True)},
-                    {"cpu_freq":round(psutil.cpu_freq().current / 10 ** 3, 2)},
+                    {"cpu_freq":round(psutil.cpu_freq() / 10 ** 3, 2)} if psutil.cpu_freq() else None,
                     {"ram_percent":raminfo.percent},
                     {"ram_used":round(raminfo.used / 10 ** 9, 4,)},
                     {"ram_free": round(raminfo.free / 10 ** 9, 4)},
@@ -66,9 +66,9 @@ class AdminView(AdminIndexView):
                     {"disk_free":round(diskinfo.free / 10 ** 9, 4)}
                 ))
                 for item in sysinfo:
-                    #print(item)
-                    itemname = list(item.keys())[0]
-                    self._template_args[itemname] = item[itemname]
+                    if item:
+                        itemname = list(item.keys())[0]
+                        self._template_args[itemname] = item[itemname]
 
                 return super(AdminView, self).index()
             else:

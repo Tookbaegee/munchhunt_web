@@ -5,6 +5,7 @@ from app.models import User
 from app.api.auth import token_auth
 from app.api.errors import bad_request
 from app.models import User
+import re
 
 # TODO: change all of the routes to have / at the end for consistency
 
@@ -24,10 +25,11 @@ def register_user():
         return bad_request("Error: choose a different username")
     if User.query.filter_by(email=data["email"]).first():
         return bad_request("Error: choose a different email address")
-    # verify password
-    stuff = validate_password(data["password"])
-    if not stuff[0]:
-        return bad_request(stuff[1])
+    # verify email and password
+    oof = [validate_email(data["email"]), validate_password(data["password"])]
+    for foo in oof:
+        if not foo[0]:
+            return bad_request(foo[1])
     
     user = User()
     user.from_dict(data, new_user=True)
@@ -38,7 +40,13 @@ def register_user():
     response.headers["Location"] = url_for("api.get_user", id=user.id)
     return response
 
-		
+def validate_email(email):
+    if re.match("^.+@([?)[a-zA-Z0-9-.]+.([a-zA-Z]{2,3}|[0-9]{1,3})(]?)$", email) != None:
+        return True, "Success"
+    else:
+        return False, "Your email is invalid."
+
+
 def validate_password(password):
     pwd = str(password) 
     if "password" in pwd.lower():

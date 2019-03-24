@@ -3,6 +3,7 @@ from wtforms import StringField, PasswordField, BooleanField, SubmitField, TextA
 from wtforms.widgets import TextArea
 from wtforms.validators import DataRequired, ValidationError, Email, EqualTo
 from app.models import User
+import re
 
 class LoginForm(FlaskForm):
     username = StringField('Username', validators=[DataRequired()])
@@ -27,6 +28,11 @@ class RegistrationForm(FlaskForm):
         user = User.query.filter_by(email=email.data).first()
         if user is not None:
             raise ValidationError('Please use a different email address.')
+        elif len(email) > 7:
+            if re.match("^.+@([?)[a-zA-Z0-9-.]+.([a-zA-Z]{2,3}|[0-9]{1,3})(]?)$", email) == None:
+                raise ValidationError("Email address is invalid.")
+        else:
+            raise ValidationError("Email address is invalid.")
     
     def validate_password(self, password):
         pwd = str(password.data) 

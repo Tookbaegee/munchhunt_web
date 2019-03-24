@@ -1,9 +1,12 @@
 from app import app, recaptcha
+from app.models import User
 from flask import request, render_template, flash, redirect, url_for
 from flask_login import current_user, login_user, logout_user, login_required
 from app.core.forms import ContactForm
 from app.core.email import send_form_email
 import sys
+
+#isAdmin = User.query.filter_by(id=current_user.id).first().admin 
 
 @app.route("/", methods=["GET", "POST"])
 def index():

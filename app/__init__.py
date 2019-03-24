@@ -9,6 +9,7 @@ from flask_argon2 import Argon2
 from flask_login import LoginManager
 from flask_migrate import Migrate
 from flask_sqlalchemy import SQLAlchemy
+from flask_admin import Admin
 
 def create_app():
     app = Flask(__name__)
@@ -37,3 +38,10 @@ app.register_blueprint(email_list_bp)
 # there may be multiple APIs in the future but this is good for now
 from app.api import api
 app.register_blueprint(api, url_prefix="/api")
+
+from app.admin import bp as admin_bp
+app.register_blueprint(admin_bp)
+
+from app.admin import routes
+
+admin = Admin(app, name="Munch Hunt Website", index_view=routes.AdminView(), template_mode="bootstrap3")

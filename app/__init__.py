@@ -12,7 +12,6 @@ from flask_migrate import Migrate
 from flask_sqlalchemy import SQLAlchemy
 from flask_admin import Admin, AdminIndexView, expose
 from flask_admin.contrib.sqla import ModelView
-from server_timing import Timing
 
 def create_app():
     app = Flask(__name__)
@@ -28,7 +27,6 @@ argon2 = Argon2(app)
 login = LoginManager(app)
 db = SQLAlchemy(app)
 migrate = Migrate(app, db)
-timing = Timing(app, force_debug=True)
 
 from app.core import bp as core_bp
 app.register_blueprint(core_bp)

@@ -5,10 +5,6 @@ sudo apt install python3-pip
 sudo apt install postgresql-11
 sudo -su postgresql
 echo "PLEASE ENTER A PASSWORD!"
-# if there is a way to avoid using md5 that would be epic
-createuser -S -D -R -e -P munchhunt
-# is this needed?
-createdb munchhunt
 exit
 python3 -m venv venv
 source venv/bin/activate

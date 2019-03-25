@@ -5,6 +5,7 @@ from app.models import User
 from app.api.auth import token_auth
 from app.api.errors import bad_request
 from app.models import User
+from app.auth.email import send_email_verification_email
 import re
 
 # TODO: change all of the routes to have / at the end for consistency
@@ -30,11 +31,12 @@ def register_user():
     for foo in oof:
         if not foo[0]:
             return bad_request(foo[1])
-    
     user = User()
     user.from_dict(data, new_user=True)
+    send_email_verification_email(user)
     db.session.add(user)
     db.session.commit()
+
     response = jsonify(user.to_dict())
     response.status_code = 201
     response.headers["Location"] = url_for("api.get_user", id=user.id)

@@ -12,7 +12,7 @@ def verify_password(username, password):
     if not user:
         return False
     g.current_user = user
-    return user.check_password(password)
+    return True if user.check_password(password) and user.verified else False
 
 @basic_auth.error_handler
 def basic_auth_error():

@@ -12,6 +12,7 @@ from flask_migrate import Migrate
 from flask_sqlalchemy import SQLAlchemy
 from flask_admin import Admin, AdminIndexView, expose
 from flask_admin.contrib.sqla import ModelView
+from flask_apscheduler import APScheduler
 
 def create_app():
     app = Flask(__name__)
@@ -27,6 +28,13 @@ argon2 = Argon2(app)
 login = LoginManager(app)
 db = SQLAlchemy(app)
 migrate = Migrate(app, db)
+scheduler = APScheduler()
+scheduler.init_app(app)
+scheduler.start()
+@app.before_first_request
+def load_tasks():
+    print("loading tasks")
+    from app.tasks import delete_unverified
 
 from app.core import bp as core_bp
 app.register_blueprint(core_bp)
@@ -77,7 +85,6 @@ class AdminView(AdminIndexView):
 class MyModelView(ModelView):
     can_delete = True
     page_size = 50
-
 
 from app.models import Restaurant, Menu, MenuItem, Hours, IngredientInfo, Business, User
 

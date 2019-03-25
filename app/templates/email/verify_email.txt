@@ -1,0 +1,9 @@
+Hi {{ user.username }}!
+
+Please verify your email by clicking the following link:
+
+{{ url_for("email_verification", token=token, _external=True) }}
+
+Unverified accounts are deleted one week after creation.
+
+-Munch Hunt Team

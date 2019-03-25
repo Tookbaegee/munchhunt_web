@@ -1,0 +1,9 @@
+<p>Hi {{ user.username }}!</p>
+<p>To verify your email, <a href="{{ url_for('email_verification', token=token, _external=True) }}">click here.</a>
+
+</p>
+<p>Alternatively, verify your email by copying the following link: <br>{{ url_for("email_verification", token=token, _external=True) }}</p>
+
+<p>Unverified accounts are deleted one week after creation.</p>
+
+<p>-Munch Hunt Team</p>

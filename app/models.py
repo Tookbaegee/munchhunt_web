@@ -84,6 +84,8 @@ class User(UserMixin, db.Model):
     email = db.Column(db.String(120), index=True, unique=True)
     password_hash = db.Column(db.String(128))
     admin = db.Column(db.Boolean, index=True, default=False)
+    verified = db.Column(db.Boolean, index=True, default=False)
+    register_time = db.Column(db.DateTime, index=True, default=datetime.utcnow)
     # for DB authentication
     token = db.Column(db.String(32), index=True, unique=True)
     token_expiration = db.Column(db.DateTime)
@@ -118,6 +120,11 @@ class User(UserMixin, db.Model):
             {"reset_password": self.id, "exp": time() + expires_in}, 
             app.config["SECRET_KEY"], algorithm="HS256").decode("utf-8")
 
+    def get_email_verification_token(self, expires_in=604800):
+        return jwt.encode(
+            {"email_verification": self.id, "exp" : time() + expires_in},
+            app.config["SECRET_KEY"], algorithm="HS256").decode("utf-8")
+
     def to_dict(self, include_email=False):
         data = {
             'id': self.id,
@@ -138,6 +145,14 @@ class User(UserMixin, db.Model):
     def verify_reset_password_token(token):
         try:
             id = jwt.decode(token, app.config["SECRET_KEY"], algorithms=["HS256"])["reset_password"]
+        except:
+            return
+        return User.query.get(id)
+    
+    @staticmethod
+    def verify_email_verification_token(token):
+        try:
+            id = jwt.decode(token, app.config["SECRET_KEY"], algorithms=["HS256"])["email_verification"]
         except:
             return
         return User.query.get(id)

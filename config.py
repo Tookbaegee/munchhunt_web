@@ -22,3 +22,13 @@ class Config(object):
     MAIL_PASSWORD = os.environ.get("MAIL_PASSWORD")
     ADMINS = ["paulgwebsite@gmail.com", "paul@paul.systems"]
     REALADMINS = ["paulgwebsite@gmail.com", "paul@paul.systems", "inocencio.adriane@gmail.com"]
+    # JOBS = [
+    #     {
+    #         "id": "delete_unverified",
+    #         "func": "app:delete_unverified",
+    #         "trigger": "interval",
+    #         "seconds": 30
+    #     }
+    # ]
+
+    SCHEDULER_API_ENABLED = True

@@ -33,7 +33,6 @@ scheduler.init_app(app)
 scheduler.start()
 @app.before_first_request
 def load_tasks():
-    print("loading tasks")
     from app.tasks import delete_unverified
 
 from app.core import bp as core_bp

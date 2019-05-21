@@ -6,8 +6,6 @@ from app.core.forms import ContactForm
 from app.core.email import send_form_email
 import sys
 
-#isAdmin = User.query.filter_by(id=current_user.id).first().admin 
-
 @app.route("/", methods=["GET", "POST"])
 def index():
     form = ContactForm()

@@ -1,6 +1,6 @@
 from app import app, recaptcha
 from app.models import User
-from flask import request, render_template, flash, redirect, url_for
+from flask import request, render_template, flash, redirect, url_for, abort, send_from_directory
 from flask_login import current_user, login_user, logout_user, login_required
 from app.core.forms import ContactForm
 from app.core.email import send_form_email
@@ -31,6 +31,23 @@ def restaurants():
 @app.route("/team")
 def team():
     return render_template("core/team.html")
+
+@login_required
+@app.route("/docs/")
+def docs():
+    if current_user.admin:
+        return send_from_directory('static/docs/', "index.html", as_attachment=False)
+    else:
+        abort(404)
+
+@login_required
+@app.route("/docs/<path:path>")
+def docs_path(path):
+    if current_user.admin:
+        return send_from_directory('static/docs/', path, as_attachment=False)
+    else:
+        abort(404)
+
 
 @app.route("/contact", methods=["GET", "POST"])
 def contact():

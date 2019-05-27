@@ -13,12 +13,18 @@ import re
 @api.route('/users/<int:id>', methods=['GET'])
 @token_auth.login_required
 def get_user(id):
+    """
+    ..include:: docs/users/get_user.md
+    """
     return jsonify(User.query.get_or_404(id).to_dict())
 
 # route for registering a new user
 # NOTE: WILL NEED TO ADD SOME KIND OF VERIFICATION FOR THIS!
 @api.route("/register", methods=["POST"])
 def register_user():
+    """
+    ..include:: docs/users/register.md
+    """
     data = request.get_json() or {}
     if "username" not in data or "email" not in data or "password" not in data:
         return bad_request("Error: username, email, and password requrired.")
@@ -43,6 +49,7 @@ def register_user():
     return response
 
 def validate_email(email):
+    """Validates user email."""
     if re.match(r"^.+@(\[?)[a-zA-Z0-9-.]+.([a-zA-Z]{2,3}|[0-9]{1,3})(]?)$", email) != None:
         return True, "Success"
     else:
@@ -50,6 +57,7 @@ def validate_email(email):
 
 
 def validate_password(password):
+    """Validates user password."""
     pwd = str(password) 
     if "password" in pwd.lower():
         return False, "Please do not use any form of the password 'password'."

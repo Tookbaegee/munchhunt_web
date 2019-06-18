@@ -217,5 +217,6 @@ class DietPattern(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey("user.id"))
 
     def __repr__(self):
-        return "<DietPattern: {}\nPork: {}\nWhite Meat: {}\nBeef: {}\nNuts: {}\nCrustacean: {}\nShellfish: {}\nFish: {}>".format(self.user.username, self.pork, self.white_meat, self.beef, self.nuts, self.crustacean, self.shellfish, self.fish)
+        username = User.query.filter_by(id=self.user_id).first()
+        return "<DietPattern: {}\nPork: {}\nWhite Meat: {}\nBeef: {}\nNuts: {}\nCrustacean: {}\nShellfish: {}\nFish: {}>".format(username, self.pork, self.white_meat, self.beef, self.nuts, self.crustacean, self.shellfish, self.fish)
     

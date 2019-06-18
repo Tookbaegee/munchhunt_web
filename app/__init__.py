@@ -1,5 +1,9 @@
+"""
+.. include:: docs/documentation.md
+"""
+
 import psutil
-from flask import Flask, abort
+from flask import Flask, abort, send_from_directory
 from flask_bootstrap import Bootstrap
 from flask import render_template
 from config import Config
@@ -15,6 +19,7 @@ from flask_admin.contrib.sqla import ModelView
 from flask_apscheduler import APScheduler
 
 def create_app():
+    """Helper function which creates the application instance."""
     app = Flask(__name__)
     Bootstrap(app)
     return app
@@ -31,8 +36,10 @@ migrate = Migrate(app, db)
 scheduler = APScheduler()
 scheduler.init_app(app)
 scheduler.start()
+
 @app.before_first_request
 def load_tasks():
+    """Loads tasks for app scheduler"""
     from app.tasks import delete_unverified
 
 from app.core import bp as core_bp
@@ -62,7 +69,7 @@ class AdminView(AdminIndexView):
                     {"cpu": psutil.cpu_percent()},
                     {"cpu_cores" : psutil.cpu_count(logical=False)},
                     {"cpu_threads":psutil.cpu_count(logical=True)},
-                    {"cpu_freq":round(psutil.cpu_freq().current / 10 ** 3, 2)} if psutil.cpu_freq() else None,
+                    {"cpu_freq":round(psutil.cpu_freq() / 10 ** 3, 2)} if psutil.cpu_freq() else None,
                     {"ram_percent":raminfo.percent},
                     {"ram_used":round(raminfo.used / 10 ** 9, 4,)},
                     {"ram_free": round(raminfo.free / 10 ** 9, 4)},

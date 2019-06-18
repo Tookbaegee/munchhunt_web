@@ -91,3 +91,27 @@ WantedBy=multi-user.target
 18. Go to the IP address or domain name of the server and the site will be running.   
 Optional: For a domain name, once you get it pointed, type `sudo certbot`. Follow the steps to create a Let's Encrypt certificate, it is pretty straightforward. The only thing to watch out for is ensure that you select 'redirect all'.   
 Now your site will have HTTPS on its domain.  
+
+## Accessing Flask Dev App hosted on a local machine from another local machine (device on the same network/wifi).
+
+1. When running flask app, host it on 0.0.0.0 by typing:
+	flask run --host=0.0.0.0
+
+2. Find out the internal ip address of the local host (the machine that flask app is running)
+by typing 'ipconfig' on powershell/cmd. The ip should look like 192.168.x.x
+
+3. Make sure the device you are trying to connect is on the same network (Wifi).
+To open the web hosted on the local machine, type the url 'http://[ip_of_localhost]:5000/'
+where [ip_of_localhost] is the internal ip address of the local host you obtained from the 'step 2'
+
+## Accessing Flask Dev App hosted on a local machine from a device on a mobile or external network. (using data/accessing from another remote machine)
+
+Do step 1 and 2 from above
+
+3. Access the router admin panel and set up the port forwarding of the port 5000 to the [ip_of_localhost].
+
+4. Find out the public IPv4 on https://www.whatismyip.com/. It would look something like '68.x.xxx.xxx'
+
+5. On the device you are trying to connect, type 'http://[public_IPv4]:5000/', where [public_IPv4] is the public IPv4 you obtained from the step 4,
+ on a browser to open the web.
+	

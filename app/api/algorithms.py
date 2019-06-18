@@ -8,6 +8,9 @@ import random
 
 @api.route("recommend", methods=["GET"])
 def recommend():
+    """
+    .. include:: docs/algorithms/recommend.md
+    """
     username = request.args.get("username")
     id = request.args.get("id")
     user = User.query.filter_by(username=username)

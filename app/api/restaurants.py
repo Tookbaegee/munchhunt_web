@@ -8,6 +8,9 @@ from app.api.auth import token_auth
 @api.route("/restaurants/get/all_restaurants", methods=["GET"])
 @token_auth.login_required
 def get_all_restaurants():
+    """
+    ..include:: docs/restaurants/get_all_restaurants.md
+    """
     restaurants = Restaurant.query.all()
     if len(restaurants) > 0:
         stuff = {
@@ -29,6 +32,9 @@ def get_all_restaurants():
 @api.route("/restaurants/get/restaurant_info_all/<string:alias>", methods=["GET"])
 @token_auth.login_required
 def get_restaurant_info_all(alias):
+    """
+    ..include:: docs/restaurants/get_restaurant_info_all.md
+    """
     rest = Restaurant.query.filter_by(alias=alias).first()
     hours = rest.hours.first()
     menu = rest.menu.first()
@@ -67,6 +73,9 @@ def get_restaurant_info_all(alias):
 @api.route("/restaurants/get/restaurant_info/<string:alias>", methods=["GET"])
 @token_auth.login_required
 def get_restaurant_info(alias):
+    """
+    ..include:: docs/restaurants/get_restaurant_info.md
+    """
     rest = Restaurant.query.filter_by(alias=alias).first()
     if rest:
         stuff = {
@@ -88,6 +97,9 @@ def get_restaurant_info(alias):
 @api.route("/restaurants/get/restaurant_hours/<string:alias>", methods=["GET"])
 @token_auth.login_required
 def get_restaurant_hours(alias):
+    """
+    ..include:: docs/restaurants/get_restaurant_hours.md
+    """
     rest = Restaurant.query.filter_by(alias=alias).first()
     hours = rest.hours.first()
     if rest:
@@ -112,6 +124,9 @@ def get_restaurant_hours(alias):
 @api.route("/restaurants/get/restaurant_menu/<string:alias>", methods=["GET"])
 @token_auth.login_required
 def get_restaurant_menu(alias):
+    """
+    ..include:: docs/restaurants/get_restaurant_menu.md
+    """
     rest = Restaurant.query.filter_by(alias=alias).first()
     menu = rest.menu.first()
     if rest:

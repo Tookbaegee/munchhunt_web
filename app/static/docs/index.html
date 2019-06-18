@@ -1,0 +1,935 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
+<meta name="generator" content="pdoc 0.6.2" />
+<title>app API documentation</title>
+<meta name="description" content="Documentation …" />
+<link href='https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.0/normalize.min.css' rel='stylesheet'>
+<link href='https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/8.0.0/sanitize.min.css' rel='stylesheet'>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css" rel="stylesheet">
+<style>.flex{display:flex !important}body{line-height:1.5em}#content{padding:20px}#sidebar{padding:30px;overflow:hidden}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:1em 0 .50em 0}h3{font-size:1.4em;margin:25px 0 10px 0}h4{margin:0;font-size:105%}a{color:#058;text-decoration:none;transition:color .3s ease-in-out}a:hover{color:#e82}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900}pre code{background:#f8f8f8;font-size:.8em;line-height:1.4em}code{background:#f2f2f1;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{background:#f8f8f8;border:0;border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0;padding:1ex}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{font-weight:bold}#index h4 + ul{margin-bottom:.6em}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-weight:bold;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source summary{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase;cursor:pointer}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}.admonition{padding:.1em .5em}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
+<style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #ddd}pre code{font-size:1em}.item .name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul{padding-left:1.5em}.toc > ul > li{margin-top:.5em}}</style>
+<style media="print">@media print{#sidebar h1{page-break-before:always}.source{display:none}}@media print{*{background:transparent !important;color:#000 !important;box-shadow:none !important;text-shadow:none !important}a[href]:after{content:" (" attr(href) ")";font-size:90%}a[href][title]:after{content:none}abbr[title]:after{content:" (" attr(title) ")"}.ir a:after,a[href^="javascript:"]:after,a[href^="#"]:after{content:""}pre,blockquote{border:1px solid #999;page-break-inside:avoid}thead{display:table-header-group}tr,img{page-break-inside:avoid}img{max-width:100% !important}@page{margin:0.5cm}p,h2,h3{orphans:3;widows:3}h1,h2,h3,h4,h5,h6{page-break-after:avoid}}</style>
+</head>
+<body>
+<main>
+<article id="content">
+<header>
+<h1 class="title">Module <code>app</code></h1>
+</header>
+<section id="section-intro">
+<h1 id="documentation">Documentation</h1>
+<p>This is a simple guide to the documentation of this application. The most helpful information will probably be found in the app.api sub-module.</p>
+<details class="source">
+<summary>Source code</summary>
+<pre><code class="python">&#34;&#34;&#34;
+.. include:: docs/documentation.md
+&#34;&#34;&#34;
+
+import psutil
+from flask import Flask, abort
+from flask_bootstrap import Bootstrap
+from flask import render_template
+from config import Config
+from flask_sitemap import Sitemap
+from flask_mail import Mail
+from flask_recaptcha import ReCaptcha
+from flask_argon2 import Argon2
+from flask_login import LoginManager, current_user
+from flask_migrate import Migrate
+from flask_sqlalchemy import SQLAlchemy
+from flask_admin import Admin, AdminIndexView, expose
+from flask_admin.contrib.sqla import ModelView
+from flask_apscheduler import APScheduler
+
+def create_app():
+    &#34;&#34;&#34;Helper function which creates the application instance.&#34;&#34;&#34;
+    app = Flask(__name__)
+    Bootstrap(app)
+    return app
+
+app = create_app()
+app.config.from_object(Config)
+ext = Sitemap(app=app)
+mail = Mail(app)
+recaptcha = ReCaptcha(app=app)
+argon2 = Argon2(app)
+login = LoginManager(app)
+db = SQLAlchemy(app)
+migrate = Migrate(app, db)
+scheduler = APScheduler()
+scheduler.init_app(app)
+scheduler.start()
+
+@app.before_first_request
+def load_tasks():
+    &#34;&#34;&#34;Loads tasks for app scheduler&#34;&#34;&#34;
+    from app.tasks import delete_unverified
+
+from app.core import bp as core_bp
+app.register_blueprint(core_bp)
+
+from app.auth import bp as auth_bp
+app.register_blueprint(auth_bp)
+
+from app.email_list import bp as email_list_bp
+app.register_blueprint(email_list_bp)
+
+# there may be multiple APIs in the future but this is good for now
+from app.api import api
+app.register_blueprint(api, url_prefix=&#34;/api&#34;)
+
+class AdminView(AdminIndexView):
+    @expose(&#34;/&#34;)
+    def adminindex(self):
+        if not current_user.is_authenticated:
+            abort(404)
+        else:
+            if current_user.admin:
+                sysinfo = []
+                raminfo = psutil.virtual_memory()
+                diskinfo = psutil.disk_usage(&#34;/&#34;)
+                sysinfo.extend((
+                    {&#34;cpu&#34;: psutil.cpu_percent()},
+                    {&#34;cpu_cores&#34; : psutil.cpu_count(logical=False)},
+                    {&#34;cpu_threads&#34;:psutil.cpu_count(logical=True)},
+                    {&#34;cpu_freq&#34;:round(psutil.cpu_freq() / 10 ** 3, 2)} if psutil.cpu_freq() else None,
+                    {&#34;ram_percent&#34;:raminfo.percent},
+                    {&#34;ram_used&#34;:round(raminfo.used / 10 ** 9, 4,)},
+                    {&#34;ram_free&#34;: round(raminfo.free / 10 ** 9, 4)},
+                    {&#34;ram_total&#34;:round(raminfo.total / 10 ** 9, 4)},
+                    {&#34;disk_percent&#34;:diskinfo.percent},
+                    {&#34;disk_used&#34;:round(diskinfo.used / 10 ** 9, 4)},
+                    {&#34;disk_total&#34;:round(diskinfo.total / 10 ** 9, 4)},
+                    {&#34;disk_free&#34;:round(diskinfo.free / 10 ** 9, 4)}
+                ))
+                for item in sysinfo:
+                    if item:
+                        itemname = list(item.keys())[0]
+                        self._template_args[itemname] = item[itemname]
+
+                return super(AdminView, self).index()
+            else:
+                abort(404) 
+
+class MyModelView(ModelView):
+    can_delete = True
+    page_size = 50
+
+from app.models import Restaurant, Menu, MenuItem, Hours, IngredientInfo, Business, User
+
+admin = Admin(app, name=&#34;Munch Hunt Administration&#34;, index_view=AdminView(), template_mode=&#34;bootstrap3&#34;)
+admin.add_view(MyModelView(Restaurant, db.session))
+admin.add_view(MyModelView(Menu, db.session))
+admin.add_view(MyModelView(MenuItem, db.session))
+admin.add_view(MyModelView(Hours, db.session))
+admin.add_view(MyModelView(IngredientInfo, db.session))
+admin.add_view(MyModelView(Business, db.session))
+admin.add_view(MyModelView(User, db.session))
+
+from app.admin import bp as admin_bp
+app.register_blueprint(admin_bp)
+
+from app.admin import routes</code></pre>
+</details>
+</section>
+<section>
+<h2 class="section-title" id="header-submodules">Sub-modules</h2>
+<dl>
+<dt><code class="name"><a title="app.admin" href="admin/index.html">app.admin</a></code></dt>
+<dd>
+<section class="desc"></section>
+</dd>
+<dt><code class="name"><a title="app.api" href="api/index.html">app.api</a></code></dt>
+<dd>
+<section class="desc"><p>API Documentation …</p></section>
+</dd>
+<dt><code class="name"><a title="app.auth" href="auth/index.html">app.auth</a></code></dt>
+<dd>
+<section class="desc"></section>
+</dd>
+<dt><code class="name"><a title="app.core" href="core/index.html">app.core</a></code></dt>
+<dd>
+<section class="desc"></section>
+</dd>
+<dt><code class="name"><a title="app.email" href="email.html">app.email</a></code></dt>
+<dd>
+<section class="desc"></section>
+</dd>
+<dt><code class="name"><a title="app.email_list" href="email_list/index.html">app.email_list</a></code></dt>
+<dd>
+<section class="desc"></section>
+</dd>
+<dt><code class="name"><a title="app.models" href="models.html">app.models</a></code></dt>
+<dd>
+<section class="desc"></section>
+</dd>
+<dt><code class="name"><a title="app.tasks" href="tasks.html">app.tasks</a></code></dt>
+<dd>
+<section class="desc"></section>
+</dd>
+</dl>
+</section>
+<section>
+</section>
+<section>
+<h2 class="section-title" id="header-functions">Functions</h2>
+<dl>
+<dt id="app.create_app"><code class="name flex">
+<span>def <span class="ident">create_app</span></span>(<span>)</span>
+</code></dt>
+<dd>
+<section class="desc"><p>Helper function which creates the application instance.</p></section>
+<details class="source">
+<summary>Source code</summary>
+<pre><code class="python">def create_app():
+    &#34;&#34;&#34;Helper function which creates the application instance.&#34;&#34;&#34;
+    app = Flask(__name__)
+    Bootstrap(app)
+    return app</code></pre>
+</details>
+</dd>
+<dt id="app.load_tasks"><code class="name flex">
+<span>def <span class="ident">load_tasks</span></span>(<span>)</span>
+</code></dt>
+<dd>
+<section class="desc"><p>Loads tasks for app scheduler</p></section>
+<details class="source">
+<summary>Source code</summary>
+<pre><code class="python">@app.before_first_request
+def load_tasks():
+    &#34;&#34;&#34;Loads tasks for app scheduler&#34;&#34;&#34;
+    from app.tasks import delete_unverified</code></pre>
+</details>
+</dd>
+</dl>
+</section>
+<section>
+<h2 class="section-title" id="header-classes">Classes</h2>
+<dl>
+<dt id="app.AdminView"><code class="flex name class">
+<span>class <span class="ident">AdminView</span></span>
+<span>(</span><span>name=None, category=None, endpoint=None, url=None, template='admin/index.html', menu_class_name=None, menu_icon_type=None, menu_icon_value=None)</span>
+</code></dt>
+<dd>
+<section class="desc"><p>Default administrative interface index page when visiting the <code>/admin/</code> URL.</p>
+<p>It can be overridden by passing your own view class to the <code>Admin</code> constructor::</p>
+<pre><code>class MyHomeView(AdminIndexView):
+    @expose('/')
+    def index(self):
+        arg1 = 'Hello'
+        return self.render('admin/myhome.html', arg1=arg1)
+
+admin = Admin(index_view=MyHomeView())
+</code></pre>
+<p>Also, you can change the root url from /admin to / with the following::</p>
+<pre><code>admin = Admin(
+    app,
+    index_view=AdminIndexView(
+        name='Home',
+        template='admin/myhome.html',
+        url='/'
+    )
+)
+</code></pre>
+<p>Default values for the index page are:</p>
+<ul>
+<li>If a name is not provided, 'Home' will be used.</li>
+<li>If an endpoint is not provided, will default to <code>&lt;a title="app.admin" href="admin/index.html"&gt;</code>app.admin<code>&lt;/a&gt;</code></li>
+<li>Default URL route is <code>/admin</code>.</li>
+<li>Automatically associates with static folder.</li>
+<li>Default template is <code>admin/index.html</code></li>
+</ul>
+<p>Constructor.</p>
+<p>:param name:
+Name of this view. If not provided, will default to the class name.
+:param category:
+View category. If not provided, this view will be shown as a top-level menu item. Otherwise, it will
+be in a submenu.
+:param endpoint:
+Base endpoint name for the view. For example, if there's a view method called "index" and
+endpoint is set to "myadmin", you can use <code>url_for('myadmin.index')</code> to get the URL to the
+view method. Defaults to the class name in lower case.
+:param url:
+Base URL. If provided, affects how URLs are generated. For example, if the url parameter
+is "test", the resulting URL will look like "/admin/test/". If not provided, will
+use endpoint as a base url. However, if URL starts with '/', absolute path is assumed
+and '/admin/' prefix won't be applied.
+:param static_url_path:
+Static URL Path. If provided, this specifies the path to the static url directory.
+:param menu_class_name:
+Optional class name for the menu item.
+:param menu_icon_type:
+Optional icon. Possible icon types:</p>
+<pre><code> - `flask_admin.consts.ICON_TYPE_GLYPH` - Bootstrap glyph icon
+ - `flask_admin.consts.ICON_TYPE_FONT_AWESOME` - Font Awesome icon
+ - `flask_admin.consts.ICON_TYPE_IMAGE` - Image relative to Flask static directory
+ - `flask_admin.consts.ICON_TYPE_IMAGE_URL` - Image with full URL
+</code></pre>
+<p>:param menu_icon_value:
+Icon glyph name or URL, depending on <code>menu_icon_type</code> setting</p></section>
+<details class="source">
+<summary>Source code</summary>
+<pre><code class="python">class AdminView(AdminIndexView):
+    @expose(&#34;/&#34;)
+    def adminindex(self):
+        if not current_user.is_authenticated:
+            abort(404)
+        else:
+            if current_user.admin:
+                sysinfo = []
+                raminfo = psutil.virtual_memory()
+                diskinfo = psutil.disk_usage(&#34;/&#34;)
+                sysinfo.extend((
+                    {&#34;cpu&#34;: psutil.cpu_percent()},
+                    {&#34;cpu_cores&#34; : psutil.cpu_count(logical=False)},
+                    {&#34;cpu_threads&#34;:psutil.cpu_count(logical=True)},
+                    {&#34;cpu_freq&#34;:round(psutil.cpu_freq() / 10 ** 3, 2)} if psutil.cpu_freq() else None,
+                    {&#34;ram_percent&#34;:raminfo.percent},
+                    {&#34;ram_used&#34;:round(raminfo.used / 10 ** 9, 4,)},
+                    {&#34;ram_free&#34;: round(raminfo.free / 10 ** 9, 4)},
+                    {&#34;ram_total&#34;:round(raminfo.total / 10 ** 9, 4)},
+                    {&#34;disk_percent&#34;:diskinfo.percent},
+                    {&#34;disk_used&#34;:round(diskinfo.used / 10 ** 9, 4)},
+                    {&#34;disk_total&#34;:round(diskinfo.total / 10 ** 9, 4)},
+                    {&#34;disk_free&#34;:round(diskinfo.free / 10 ** 9, 4)}
+                ))
+                for item in sysinfo:
+                    if item:
+                        itemname = list(item.keys())[0]
+                        self._template_args[itemname] = item[itemname]
+
+                return super(AdminView, self).index()
+            else:
+                abort(404) </code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li>flask_admin.base.AdminIndexView</li>
+<li>flask_admin.base.BaseView</li>
+<li>flask_admin.base.BaseViewClass</li>
+</ul>
+<h3>Methods</h3>
+<dl>
+<dt id="app.AdminView.adminindex"><code class="name flex">
+<span>def <span class="ident">adminindex</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<section class="desc"></section>
+<details class="source">
+<summary>Source code</summary>
+<pre><code class="python">@expose(&#34;/&#34;)
+def adminindex(self):
+    if not current_user.is_authenticated:
+        abort(404)
+    else:
+        if current_user.admin:
+            sysinfo = []
+            raminfo = psutil.virtual_memory()
+            diskinfo = psutil.disk_usage(&#34;/&#34;)
+            sysinfo.extend((
+                {&#34;cpu&#34;: psutil.cpu_percent()},
+                {&#34;cpu_cores&#34; : psutil.cpu_count(logical=False)},
+                {&#34;cpu_threads&#34;:psutil.cpu_count(logical=True)},
+                {&#34;cpu_freq&#34;:round(psutil.cpu_freq() / 10 ** 3, 2)} if psutil.cpu_freq() else None,
+                {&#34;ram_percent&#34;:raminfo.percent},
+                {&#34;ram_used&#34;:round(raminfo.used / 10 ** 9, 4,)},
+                {&#34;ram_free&#34;: round(raminfo.free / 10 ** 9, 4)},
+                {&#34;ram_total&#34;:round(raminfo.total / 10 ** 9, 4)},
+                {&#34;disk_percent&#34;:diskinfo.percent},
+                {&#34;disk_used&#34;:round(diskinfo.used / 10 ** 9, 4)},
+                {&#34;disk_total&#34;:round(diskinfo.total / 10 ** 9, 4)},
+                {&#34;disk_free&#34;:round(diskinfo.free / 10 ** 9, 4)}
+            ))
+            for item in sysinfo:
+                if item:
+                    itemname = list(item.keys())[0]
+                    self._template_args[itemname] = item[itemname]
+
+            return super(AdminView, self).index()
+        else:
+            abort(404) </code></pre>
+</details>
+</dd>
+<dt id="app.AdminView.index"><code class="name flex">
+<span>def <span class="ident">index</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<section class="desc"></section>
+<details class="source">
+<summary>Source code</summary>
+<pre><code class="python">@expose()
+def index(self):
+    return self.render(self._template)</code></pre>
+</details>
+</dd>
+</dl>
+</dd>
+<dt id="app.MyModelView"><code class="flex name class">
+<span>class <span class="ident">MyModelView</span></span>
+<span>(</span><span>model, session, name=None, category=None, endpoint=None, url=None, static_folder=None, menu_class_name=None, menu_icon_type=None, menu_icon_value=None)</span>
+</code></dt>
+<dd>
+<section class="desc"><p>SQLAlchemy model view</p>
+<p>Usage sample::</p>
+<pre><code>admin = Admin()
+admin.add_view(ModelView(User, db.session))
+</code></pre>
+<p>Constructor.</p>
+<p>:param model:
+Model class
+:param session:
+SQLAlchemy session
+:param name:
+View name. If not set, defaults to the model name
+:param category:
+Category name
+:param endpoint:
+Endpoint name. If not set, defaults to the model name
+:param url:
+Base URL. If not set, defaults to '/admin/' + endpoint
+:param menu_class_name:
+Optional class name for the menu item.
+:param menu_icon_type:
+Optional icon. Possible icon types:</p>
+<pre><code> - `flask_admin.consts.ICON_TYPE_GLYPH` - Bootstrap glyph icon
+ - `flask_admin.consts.ICON_TYPE_FONT_AWESOME` - Font Awesome icon
+ - `flask_admin.consts.ICON_TYPE_IMAGE` - Image relative to Flask static directory
+ - `flask_admin.consts.ICON_TYPE_IMAGE_URL` - Image with full URL
+</code></pre>
+<p>:param menu_icon_value:
+Icon glyph name or URL, depending on <code>menu_icon_type</code> setting</p></section>
+<details class="source">
+<summary>Source code</summary>
+<pre><code class="python">class MyModelView(ModelView):
+    can_delete = True
+    page_size = 50</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li>flask_admin.contrib.sqla.view.ModelView</li>
+<li>flask_admin.model.base.BaseModelView</li>
+<li>flask_admin.base.BaseView</li>
+<li>flask_admin.base.BaseViewClass</li>
+<li>flask_admin.actions.ActionsMixin</li>
+</ul>
+<h3>Class variables</h3>
+<dl>
+<dt id="app.MyModelView.can_delete"><code class="name">var <span class="ident">can_delete</span></code></dt>
+<dd>
+<section class="desc"></section>
+</dd>
+<dt id="app.MyModelView.page_size"><code class="name">var <span class="ident">page_size</span></code></dt>
+<dd>
+<section class="desc"></section>
+</dd>
+</dl>
+<h3>Methods</h3>
+<dl>
+<dt id="app.MyModelView.action_view"><code class="name flex">
+<span>def <span class="ident">action_view</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<section class="desc"><p>Mass-model action view.</p></section>
+<details class="source">
+<summary>Source code</summary>
+<pre><code class="python">@expose(&#39;/action/&#39;, methods=(&#39;POST&#39;,))
+def action_view(self):
+    &#34;&#34;&#34;
+        Mass-model action view.
+    &#34;&#34;&#34;
+    return self.handle_action()</code></pre>
+</details>
+</dd>
+<dt id="app.MyModelView.ajax_lookup"><code class="name flex">
+<span>def <span class="ident">ajax_lookup</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<section class="desc"></section>
+<details class="source">
+<summary>Source code</summary>
+<pre><code class="python">@expose(&#39;/ajax/lookup/&#39;)
+def ajax_lookup(self):
+    name = request.args.get(&#39;name&#39;)
+    query = request.args.get(&#39;query&#39;)
+    offset = request.args.get(&#39;offset&#39;, type=int)
+    limit = request.args.get(&#39;limit&#39;, 10, type=int)
+
+    loader = self._form_ajax_refs.get(name)
+
+    if not loader:
+        abort(404)
+
+    data = [loader.format(m) for m in loader.get_list(query, offset, limit)]
+    return Response(json.dumps(data), mimetype=&#39;application/json&#39;)</code></pre>
+</details>
+</dd>
+<dt id="app.MyModelView.ajax_update"><code class="name flex">
+<span>def <span class="ident">ajax_update</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<section class="desc"><p>Edits a single column of a record in list view.</p></section>
+<details class="source">
+<summary>Source code</summary>
+<pre><code class="python">@expose(&#39;/ajax/update/&#39;, methods=(&#39;POST&#39;,))
+def ajax_update(self):
+    &#34;&#34;&#34;
+        Edits a single column of a record in list view.
+    &#34;&#34;&#34;
+    if not self.column_editable_list:
+        abort(404)
+
+    form = self.list_form()
+
+    # prevent validation issues due to submitting a single field
+    # delete all fields except the submitted fields and csrf token
+    for field in list(form):
+        if (field.name in request.form) or (field.name == &#39;csrf_token&#39;):
+            pass
+        else:
+            form.__delitem__(field.name)
+
+    if self.validate_form(form):
+        pk = form.list_form_pk.data
+        record = self.get_one(pk)
+
+        if record is None:
+            return gettext(&#39;Record does not exist.&#39;), 500
+
+        if self.update_model(form, record):
+            # Success
+            return gettext(&#39;Record was successfully saved.&#39;)
+        else:
+            # Error: No records changed, or problem saving to database.
+            msgs = &#34;, &#34;.join([msg for msg in get_flashed_messages()])
+            return gettext(&#39;Failed to update record. %(error)s&#39;,
+                           error=msgs), 500
+    else:
+        for field in form:
+            for error in field.errors:
+                # return validation error to x-editable
+                if isinstance(error, list):
+                    return gettext(&#39;Failed to update record. %(error)s&#39;,
+                                   error=&#34;, &#34;.join(error)), 500
+                else:
+                    return gettext(&#39;Failed to update record. %(error)s&#39;,
+                                   error=error), 500</code></pre>
+</details>
+</dd>
+<dt id="app.MyModelView.create_view"><code class="name flex">
+<span>def <span class="ident">create_view</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<section class="desc"><p>Create model view</p></section>
+<details class="source">
+<summary>Source code</summary>
+<pre><code class="python">@expose(&#39;/new/&#39;, methods=(&#39;GET&#39;, &#39;POST&#39;))
+def create_view(self):
+    &#34;&#34;&#34;
+        Create model view
+    &#34;&#34;&#34;
+    return_url = get_redirect_target() or self.get_url(&#39;.index_view&#39;)
+
+    if not self.can_create:
+        return redirect(return_url)
+
+    form = self.create_form()
+    if not hasattr(form, &#39;_validated_ruleset&#39;) or not form._validated_ruleset:
+        self._validate_form_instance(ruleset=self._form_create_rules, form=form)
+
+    if self.validate_form(form):
+        # in versions 1.1.0 and before, this returns a boolean
+        # in later versions, this is the model itself
+        model = self.create_model(form)
+        if model:
+            flash(gettext(&#39;Record was successfully created.&#39;), &#39;success&#39;)
+            if &#39;_add_another&#39; in request.form:
+                return redirect(request.url)
+            elif &#39;_continue_editing&#39; in request.form:
+                # if we have a valid model, try to go to the edit view
+                if model is not True:
+                    url = self.get_url(&#39;.edit_view&#39;, id=self.get_pk_value(model), url=return_url)
+                else:
+                    url = return_url
+                return redirect(url)
+            else:
+                # save button
+                return redirect(self.get_save_return_url(model, is_created=True))
+
+    form_opts = FormOpts(widget_args=self.form_widget_args,
+                         form_rules=self._form_create_rules)
+
+    if self.create_modal and request.args.get(&#39;modal&#39;):
+        template = self.create_modal_template
+    else:
+        template = self.create_template
+
+    return self.render(template,
+                       form=form,
+                       form_opts=form_opts,
+                       return_url=return_url)</code></pre>
+</details>
+</dd>
+<dt id="app.MyModelView.delete_view"><code class="name flex">
+<span>def <span class="ident">delete_view</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<section class="desc"><p>Delete model view. Only POST method is allowed.</p></section>
+<details class="source">
+<summary>Source code</summary>
+<pre><code class="python">@expose(&#39;/delete/&#39;, methods=(&#39;POST&#39;,))
+def delete_view(self):
+    &#34;&#34;&#34;
+        Delete model view. Only POST method is allowed.
+    &#34;&#34;&#34;
+    return_url = get_redirect_target() or self.get_url(&#39;.index_view&#39;)
+
+    if not self.can_delete:
+        return redirect(return_url)
+
+    form = self.delete_form()
+
+    if self.validate_form(form):
+        # id is InputRequired()
+        id = form.id.data
+
+        model = self.get_one(id)
+
+        if model is None:
+            flash(gettext(&#39;Record does not exist.&#39;), &#39;error&#39;)
+            return redirect(return_url)
+
+        # message is flashed from within delete_model if it fails
+        if self.delete_model(model):
+            count = 1
+            flash(
+                ngettext(&#39;Record was successfully deleted.&#39;,
+                         &#39;%(count)s records were successfully deleted.&#39;,
+                         count, count=count), &#39;success&#39;)
+            return redirect(return_url)
+    else:
+        flash_errors(form, message=&#39;Failed to delete record. %(error)s&#39;)
+
+    return redirect(return_url)</code></pre>
+</details>
+</dd>
+<dt id="app.MyModelView.details_view"><code class="name flex">
+<span>def <span class="ident">details_view</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<section class="desc"><p>Details model view</p></section>
+<details class="source">
+<summary>Source code</summary>
+<pre><code class="python">@expose(&#39;/details/&#39;)
+def details_view(self):
+    &#34;&#34;&#34;
+        Details model view
+    &#34;&#34;&#34;
+    return_url = get_redirect_target() or self.get_url(&#39;.index_view&#39;)
+
+    if not self.can_view_details:
+        return redirect(return_url)
+
+    id = get_mdict_item_or_list(request.args, &#39;id&#39;)
+    if id is None:
+        return redirect(return_url)
+
+    model = self.get_one(id)
+
+    if model is None:
+        flash(gettext(&#39;Record does not exist.&#39;), &#39;error&#39;)
+        return redirect(return_url)
+
+    if self.details_modal and request.args.get(&#39;modal&#39;):
+        template = self.details_modal_template
+    else:
+        template = self.details_template
+
+    return self.render(template,
+                       model=model,
+                       details_columns=self._details_columns,
+                       get_value=self.get_detail_value,
+                       return_url=return_url)</code></pre>
+</details>
+</dd>
+<dt id="app.MyModelView.edit_view"><code class="name flex">
+<span>def <span class="ident">edit_view</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<section class="desc"><p>Edit model view</p></section>
+<details class="source">
+<summary>Source code</summary>
+<pre><code class="python">@expose(&#39;/edit/&#39;, methods=(&#39;GET&#39;, &#39;POST&#39;))
+def edit_view(self):
+    &#34;&#34;&#34;
+        Edit model view
+    &#34;&#34;&#34;
+    return_url = get_redirect_target() or self.get_url(&#39;.index_view&#39;)
+
+    if not self.can_edit:
+        return redirect(return_url)
+
+    id = get_mdict_item_or_list(request.args, &#39;id&#39;)
+    if id is None:
+        return redirect(return_url)
+
+    model = self.get_one(id)
+
+    if model is None:
+        flash(gettext(&#39;Record does not exist.&#39;), &#39;error&#39;)
+        return redirect(return_url)
+
+    form = self.edit_form(obj=model)
+    if not hasattr(form, &#39;_validated_ruleset&#39;) or not form._validated_ruleset:
+        self._validate_form_instance(ruleset=self._form_edit_rules, form=form)
+
+    if self.validate_form(form):
+        if self.update_model(form, model):
+            flash(gettext(&#39;Record was successfully saved.&#39;), &#39;success&#39;)
+            if &#39;_add_another&#39; in request.form:
+                return redirect(self.get_url(&#39;.create_view&#39;, url=return_url))
+            elif &#39;_continue_editing&#39; in request.form:
+                return redirect(request.url)
+            else:
+                # save button
+                return redirect(self.get_save_return_url(model, is_created=False))
+
+    if request.method == &#39;GET&#39; or form.errors:
+        self.on_form_prefill(form, id)
+
+    form_opts = FormOpts(widget_args=self.form_widget_args,
+                         form_rules=self._form_edit_rules)
+
+    if self.edit_modal and request.args.get(&#39;modal&#39;):
+        template = self.edit_modal_template
+    else:
+        template = self.edit_template
+
+    return self.render(template,
+                       model=model,
+                       form=form,
+                       form_opts=form_opts,
+                       return_url=return_url)</code></pre>
+</details>
+</dd>
+<dt id="app.MyModelView.export"><code class="name flex">
+<span>def <span class="ident">export</span></span>(<span>self, export_type)</span>
+</code></dt>
+<dd>
+<section class="desc"></section>
+<details class="source">
+<summary>Source code</summary>
+<pre><code class="python">@expose(&#39;/export/&lt;export_type&gt;/&#39;)
+def export(self, export_type):
+    return_url = get_redirect_target() or self.get_url(&#39;.index_view&#39;)
+
+    if not self.can_export or (export_type not in self.export_types):
+        flash(gettext(&#39;Permission denied.&#39;), &#39;error&#39;)
+        return redirect(return_url)
+
+    if export_type == &#39;csv&#39;:
+        return self._export_csv(return_url)
+    else:
+        return self._export_tablib(export_type, return_url)</code></pre>
+</details>
+</dd>
+<dt id="app.MyModelView.index_view"><code class="name flex">
+<span>def <span class="ident">index_view</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<section class="desc"><p>List view</p></section>
+<details class="source">
+<summary>Source code</summary>
+<pre><code class="python">@expose(&#39;/&#39;)
+def index_view(self):
+    &#34;&#34;&#34;
+        List view
+    &#34;&#34;&#34;
+    if self.can_delete:
+        delete_form = self.delete_form()
+    else:
+        delete_form = None
+
+    # Grab parameters from URL
+    view_args = self._get_list_extra_args()
+
+    # Map column index to column name
+    sort_column = self._get_column_by_idx(view_args.sort)
+    if sort_column is not None:
+        sort_column = sort_column[0]
+
+    # Get page size
+    page_size = view_args.page_size or self.page_size
+
+    # Get count and data
+    count, data = self.get_list(view_args.page, sort_column, view_args.sort_desc,
+                                view_args.search, view_args.filters, page_size=page_size)
+
+    list_forms = {}
+    if self.column_editable_list:
+        for row in data:
+            list_forms[self.get_pk_value(row)] = self.list_form(obj=row)
+
+    # Calculate number of pages
+    if count is not None and page_size:
+        num_pages = int(ceil(count / float(page_size)))
+    elif not page_size:
+        num_pages = 0  # hide pager for unlimited page_size
+    else:
+        num_pages = None  # use simple pager
+
+    # Various URL generation helpers
+    def pager_url(p):
+        # Do not add page number if it is first page
+        if p == 0:
+            p = None
+
+        return self._get_list_url(view_args.clone(page=p))
+
+    def sort_url(column, invert=False, desc=None):
+        if not desc and invert and not view_args.sort_desc:
+            desc = 1
+
+        return self._get_list_url(view_args.clone(sort=column, sort_desc=desc))
+
+    def page_size_url(s):
+        if not s:
+            s = self.page_size
+
+        return self._get_list_url(view_args.clone(page_size=s))
+
+    # Actions
+    actions, actions_confirmation = self.get_actions_list()
+    if actions:
+        action_form = self.action_form()
+    else:
+        action_form = None
+
+    clear_search_url = self._get_list_url(view_args.clone(page=0,
+                                                          sort=view_args.sort,
+                                                          sort_desc=view_args.sort_desc,
+                                                          search=None,
+                                                          filters=None))
+
+    return self.render(
+        self.list_template,
+        data=data,
+        list_forms=list_forms,
+        delete_form=delete_form,
+        action_form=action_form,
+
+        # List
+        list_columns=self._list_columns,
+        sortable_columns=self._sortable_columns,
+        editable_columns=self.column_editable_list,
+        list_row_actions=self.get_list_row_actions(),
+
+        # Pagination
+        count=count,
+        pager_url=pager_url,
+        num_pages=num_pages,
+        can_set_page_size=self.can_set_page_size,
+        page_size_url=page_size_url,
+        page=view_args.page,
+        page_size=page_size,
+        default_page_size=self.page_size,
+
+        # Sorting
+        sort_column=view_args.sort,
+        sort_desc=view_args.sort_desc,
+        sort_url=sort_url,
+
+        # Search
+        search_supported=self._search_supported,
+        clear_search_url=clear_search_url,
+        search=view_args.search,
+        search_placeholder=self.search_placeholder(),
+
+        # Filters
+        filters=self._filters,
+        filter_groups=self._get_filter_groups(),
+        active_filters=view_args.filters,
+        filter_args=self._get_filters(view_args.filters),
+
+        # Actions
+        actions=actions,
+        actions_confirmation=actions_confirmation,
+
+        # Misc
+        enumerate=enumerate,
+        get_pk_value=self.get_pk_value,
+        get_value=self.get_list_value,
+        return_url=self._get_list_url(view_args),
+    )</code></pre>
+</details>
+</dd>
+</dl>
+</dd>
+</dl>
+</section>
+</article>
+<nav id="sidebar">
+<h1>Index</h1>
+<div class="toc">
+<ul>
+<li><a href="#documentation">Documentation</a></li>
+</ul>
+</div>
+<ul id="index">
+<li><h3><a href="#header-submodules">Sub-modules</a></h3>
+<ul>
+<li><code><a title="app.admin" href="admin/index.html">app.admin</a></code></li>
+<li><code><a title="app.api" href="api/index.html">app.api</a></code></li>
+<li><code><a title="app.auth" href="auth/index.html">app.auth</a></code></li>
+<li><code><a title="app.core" href="core/index.html">app.core</a></code></li>
+<li><code><a title="app.email" href="email.html">app.email</a></code></li>
+<li><code><a title="app.email_list" href="email_list/index.html">app.email_list</a></code></li>
+<li><code><a title="app.models" href="models.html">app.models</a></code></li>
+<li><code><a title="app.tasks" href="tasks.html">app.tasks</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-functions">Functions</a></h3>
+<ul class="">
+<li><code><a title="app.create_app" href="#app.create_app">create_app</a></code></li>
+<li><code><a title="app.load_tasks" href="#app.load_tasks">load_tasks</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-classes">Classes</a></h3>
+<ul>
+<li>
+<h4><code><a title="app.AdminView" href="#app.AdminView">AdminView</a></code></h4>
+<ul class="">
+<li><code><a title="app.AdminView.adminindex" href="#app.AdminView.adminindex">adminindex</a></code></li>
+<li><code><a title="app.AdminView.index" href="#app.AdminView.index">index</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="app.MyModelView" href="#app.MyModelView">MyModelView</a></code></h4>
+<ul class="two-column">
+<li><code><a title="app.MyModelView.action_view" href="#app.MyModelView.action_view">action_view</a></code></li>
+<li><code><a title="app.MyModelView.ajax_lookup" href="#app.MyModelView.ajax_lookup">ajax_lookup</a></code></li>
+<li><code><a title="app.MyModelView.ajax_update" href="#app.MyModelView.ajax_update">ajax_update</a></code></li>
+<li><code><a title="app.MyModelView.can_delete" href="#app.MyModelView.can_delete">can_delete</a></code></li>
+<li><code><a title="app.MyModelView.create_view" href="#app.MyModelView.create_view">create_view</a></code></li>
+<li><code><a title="app.MyModelView.delete_view" href="#app.MyModelView.delete_view">delete_view</a></code></li>
+<li><code><a title="app.MyModelView.details_view" href="#app.MyModelView.details_view">details_view</a></code></li>
+<li><code><a title="app.MyModelView.edit_view" href="#app.MyModelView.edit_view">edit_view</a></code></li>
+<li><code><a title="app.MyModelView.export" href="#app.MyModelView.export">export</a></code></li>
+<li><code><a title="app.MyModelView.index_view" href="#app.MyModelView.index_view">index_view</a></code></li>
+<li><code><a title="app.MyModelView.page_size" href="#app.MyModelView.page_size">page_size</a></code></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</nav>
+</main>
+<footer id="footer">
+<p>Generated by <a href="https://pdoc3.github.io/pdoc"><cite>pdoc</cite> 0.6.2</a>.</p>
+</footer>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad()</script>
+</body>
+</html>

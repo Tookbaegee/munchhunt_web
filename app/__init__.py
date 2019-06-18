@@ -62,7 +62,7 @@ class AdminView(AdminIndexView):
                     {"cpu": psutil.cpu_percent()},
                     {"cpu_cores" : psutil.cpu_count(logical=False)},
                     {"cpu_threads":psutil.cpu_count(logical=True)},
-                    {"cpu_freq":round(psutil.cpu_freq() / 10 ** 3, 2)} if psutil.cpu_freq() else None,
+                    {"cpu_freq":round(psutil.cpu_freq().current / 10 ** 3, 2)} if psutil.cpu_freq() else None,
                     {"ram_percent":raminfo.percent},
                     {"ram_used":round(raminfo.used / 10 ** 9, 4,)},
                     {"ram_free": round(raminfo.free / 10 ** 9, 4)},
@@ -85,16 +85,13 @@ class MyModelView(ModelView):
     can_delete = True
     page_size = 50
 
-from app.models import Restaurant, Menu, MenuItem, Hours, IngredientInfo, Business, User
+from app.models import Restaurant, Menu, MenuItem, Hours, IngredientInfo, Business, User, SecondaryKeywords, TertiaryKeywords, DietPattern
 
 admin = Admin(app, name="Munch Hunt Administration", index_view=AdminView(), template_mode="bootstrap3")
-admin.add_view(MyModelView(Restaurant, db.session))
-admin.add_view(MyModelView(Menu, db.session))
-admin.add_view(MyModelView(MenuItem, db.session))
-admin.add_view(MyModelView(Hours, db.session))
-admin.add_view(MyModelView(IngredientInfo, db.session))
-admin.add_view(MyModelView(Business, db.session))
-admin.add_view(MyModelView(User, db.session))
+
+models = [Restaurant, Menu, MenuItem, Hours, IngredientInfo, Business, User, SecondaryKeywords, TertiaryKeywords, DietPattern]
+for model in models:
+    admin.add_view(MyModelView(model, db.session))
 
 from app.admin import bp as admin_bp
 app.register_blueprint(admin_bp)

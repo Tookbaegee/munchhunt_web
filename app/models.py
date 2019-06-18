@@ -11,6 +11,16 @@ import os
 def load_user(id):
     return User.query.get(int(id))
 
+sec_keywords = db.Table('sec_keywords',
+        db.Column('secondary_keywords_id', db.Integer, db.ForeignKey('secondary_keywords.id'), primary_key=True),
+        db.Column('restaurant_id', db.Integer, db.ForeignKey('restaurant.id'), primary_key=True)
+        )
+
+ter_keywords = db.Table('ter_keywords',
+        db.Column('tertiary_keywords_id', db.Integer, db.ForeignKey('tertiary_keywords.id'), primary_key=True),
+        db.Column('restaurant_id', db.Integer, db.ForeignKey('restaurant.id'), primary_key=True)
+        )
+
 class Restaurant(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(120), index=True, unique=True)
@@ -21,11 +31,37 @@ class Restaurant(db.Model):
     price = db.Column(db.String(120), index=True)
     direction = db.Column(db.String(120), index=True)
     time = db.Column(db.Integer)
+    website = db.Column(db.String(120))
     hours = db.relationship("Hours", backref=db.backref("restaurant", uselist=False), lazy="dynamic")
     menu = db.relationship("Menu", backref=db.backref("restaurant", uselist=False), lazy="dynamic")
+    primary_keyword = db.Column(db.String(120), index=True)
+    secondary_keywords = db.relationship('SecondaryKeywords', secondary=sec_keywords, lazy='subquery', backref=db.backref('restaurant', lazy=True))
+    tertiary_keywords = db.relationship('TertiaryKeywords', secondary=ter_keywords, lazy='subquery', backref=db.backref('restaurant', lazy=True))
+    
 
     def __repr__(self):
         return "<Restaurant: {}>".format(self.name)
+
+class SecondaryKeywords(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    keyword = db.Column(db.String(120), index=True, unique=True)
+
+    def __repr__(self):
+        return "<SecondaryKeywords: {}>".format(self.keyword)
+
+# QUERY: 
+# To get secondary keyword based on restaurant:
+# SecondaryKeywords.query.filter(SecondaryKeywords.restaurant.any(name="dummy")).first()
+# To get restaurant based on keyword: Restaurant.query.filter(Restaurant.secondary_keywords.any(keyword="Wings")).first()
+# 
+
+class TertiaryKeywords(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    keyword = db.Column(db.String(120), index=True, unique=True)
+
+    def __repr__(self):
+        return "<TertiaryKeywords: {}>".format(self.keyword)
+        
 
 class Hours(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -57,6 +93,13 @@ class MenuItem(db.Model):
     itemType = db.Column(db.String(120), index=True)
     price = db.Column(db.String(120), index=True)
     menu_id = db.Column(db.Integer, db.ForeignKey("menu.id"))
+    pork = db.Column(db.Boolean, index=True)
+    white_meat = db.Column(db.Boolean, index=True)
+    beef = db.Column(db.Boolean, index=True)
+    nuts = db.Column(db.Boolean, index=True)
+    crustacean = db.Column(db.Boolean, index=True)
+    shellfish = db.Column(db.Boolean, index=True)
+    fish = db.Column(db.Boolean, index=True)
 
     def __repr__(self):
         return "<MenuItem: {}>".format(self.name)
@@ -75,6 +118,7 @@ class IngredientInfo(db.Model):
 class Business(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     email = db.Column(db.String(120), index=True, unique=True)
+
     def __repr__(self):
         return "<Business: {}>".format(self.email)
     
@@ -89,6 +133,7 @@ class User(UserMixin, db.Model):
     # for DB authentication
     token = db.Column(db.String(32), index=True, unique=True)
     token_expiration = db.Column(db.DateTime)
+    diet = db.relationship("DietPattern", backref=db.backref("user", uselist=False), lazy="dynamic")
 
     def get_token(self, expires_in=3600):
         now = datetime.utcnow()
@@ -159,3 +204,18 @@ class User(UserMixin, db.Model):
 
     def __repr__(self):
         return "<User {}>".format(self.username)
+
+class DietPattern(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    pork = db.Column(db.Boolean, index=True)
+    white_meat = db.Column(db.Boolean, index=True)
+    beef = db.Column(db.Boolean, index=True)
+    nuts = db.Column(db.Boolean, index=True)
+    crustacean = db.Column(db.Boolean, index=True)
+    shellfish = db.Column(db.Boolean, index=True)
+    fish = db.Column(db.Boolean, index=True)
+    user_id = db.Column(db.Integer, db.ForeignKey("user.id"))
+
+    def __repr__(self):
+        return "<DietPattern: {}\nPork: {}\nWhite Meat: {}\nBeef: {}\nNuts: {}\nCrustacean: {}\nShellfish: {}\nFish: {}>".format(self.user.username, self.pork, self.white_meat, self.beef, self.nuts, self.crustacean, self.shellfish, self.fish)
+    

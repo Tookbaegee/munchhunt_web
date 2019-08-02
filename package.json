@@ -1,0 +1,24 @@
+{
+  "name": "munch-hunt-website-api",
+  "version": "1.0.0",
+  "description": "Munch Hunt API/Website",
+  "dependencies": {},
+  "devDependencies": {
+    "cz-conventional-changelog": "^3.0.2"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@personal_bitbucket:munchhunt/munch-hunt-website-api.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
+  }
+}

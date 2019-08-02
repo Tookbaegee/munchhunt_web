@@ -5,3 +5,5 @@
 \.vscode/
 \migrations/
 \app.db
+\node_modules/
+.env
